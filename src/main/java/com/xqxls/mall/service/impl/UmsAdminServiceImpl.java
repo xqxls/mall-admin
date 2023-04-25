@@ -1,8 +1,7 @@
 package com.xqxls.mall.service.impl;
 
-import cn.hutool.core.lang.Snowflake;
+import com.xqxls.mall.cache.UmsAdminCacheService;
 import com.xqxls.mall.common.exception.Asserts;
-import com.xqxls.mall.common.id.IdWorker;
 import com.xqxls.mall.domain.AdminUserDetails;
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsAdminLoginLogEntity;
@@ -12,6 +11,7 @@ import com.xqxls.mall.mapper.UmsAdminLoginLogDao;
 import com.xqxls.mall.mapper.UmsResourceDao;
 import com.xqxls.mall.service.UmsAdminService;
 import com.xqxls.mall.util.JwtTokenUtil;
+import com.xqxls.mall.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +38,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class UmsAdminServiceImpl implements UmsAdminService {
+public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity> implements UmsAdminService {
 
     @Autowired
     private UmsAdminDao umsAdminDao;
@@ -104,18 +104,23 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
     @Override
     public UmsAdminEntity getAdminByUsername(String username) {
-
+        UmsAdminEntity admin = getCacheService().getAdmin(username);
+        if(admin!=null) return  admin;
         Example example = new Example(UmsAdminEntity.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("username", username);
         List<UmsAdminEntity> umsAdminEntityList = umsAdminDao.selectByExample(example);
-        if (CollectionUtils.isEmpty(umsAdminEntityList)) {
-            Asserts.fail("用户名不存在");
+        if (!CollectionUtils.isEmpty(umsAdminEntityList)&&umsAdminEntityList.size()>0) {
+            admin = umsAdminEntityList.get(0);
+            getCacheService().setAdmin(admin);
+            return admin;
         }
-        if (umsAdminEntityList.size()>1) {
-            Asserts.fail("该用户存在多个");
-        }
-        return umsAdminEntityList.get(0);
+        return null;
+    }
+
+    @Override
+    public UmsAdminCacheService getCacheService() {
+        return SpringUtil.getBean(UmsAdminCacheService.class);
     }
 
     @Override

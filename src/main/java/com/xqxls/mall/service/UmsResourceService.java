@@ -11,7 +11,7 @@ import java.util.List;
  * @author xqxls
  * @date 2023-04-25 9:20 上午
  */
-public interface UmsResourceService {
+public interface UmsResourceService extends IService<UmsResourceEntity>{
 
     List<UmsResourceEntity> findAll();
 }

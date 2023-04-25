@@ -5,7 +5,6 @@ import com.xqxls.mall.mapper.UmsResourceDao;
 import com.xqxls.mall.service.UmsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * @date 2023-04-25 9:20 上午
  */
 @Service
-public class UmsResourceServiceImpl implements UmsResourceService {
+public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceDao, UmsResourceEntity> implements UmsResourceService {
 
     @Autowired
     private UmsResourceDao umsResourceDao;

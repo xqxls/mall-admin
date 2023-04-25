@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @date 2023-04-25 9:20 上午
  */
 @Service
-public class UmsRoleMenuRelationServiceImpl implements UmsRoleMenuRelationService {
+public class UmsRoleMenuRelationServiceImpl extends ServiceImpl<UmsRoleMenuRelationDao, UmsRoleMenuRelationEntity> implements UmsRoleMenuRelationService {
 
 }

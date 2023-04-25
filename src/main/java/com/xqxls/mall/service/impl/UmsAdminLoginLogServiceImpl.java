@@ -1,7 +1,8 @@
 package com.xqxls.mall.service.impl;
 
+import com.xqxls.mall.entity.UmsAdminLoginLogEntity;
+import com.xqxls.mall.mapper.UmsAdminLoginLogDao;
 import com.xqxls.mall.service.UmsAdminLoginLogService;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @date 2023-04-25 9:20 上午
  */
 @Service
-public class UmsAdminLoginLogServiceImpl implements UmsAdminLoginLogService {
+public class UmsAdminLoginLogServiceImpl extends ServiceImpl<UmsAdminLoginLogDao,UmsAdminLoginLogEntity> implements UmsAdminLoginLogService {
 
 }

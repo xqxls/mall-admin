@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @date 2023-04-25 9:20 上午
  */
 @Service
-public class UmsResourceCategoryServiceImpl implements UmsResourceCategoryService {
+public class UmsResourceCategoryServiceImpl extends ServiceImpl<UmsResourceCategoryDao, UmsResourceCategoryEntity> implements UmsResourceCategoryService {
 
 }
