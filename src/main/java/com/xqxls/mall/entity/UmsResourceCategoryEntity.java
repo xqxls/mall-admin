@@ -1,10 +1,7 @@
 package com.xqxls.mall.entity;
 
 import com.xqxls.mall.common.id.BaseEntity;
-import com.xqxls.mall.common.id.IdWorker;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import lombok.Data;

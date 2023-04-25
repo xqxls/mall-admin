@@ -12,7 +12,8 @@ import java.io.IOException;
 
 /**
  * 自定义返回结果：没有权限访问时
- * Created by macro on 2018/4/26.
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
 

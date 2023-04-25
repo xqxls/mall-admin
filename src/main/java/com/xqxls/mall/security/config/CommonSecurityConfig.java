@@ -10,7 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * SpringSecurity通用配置
  * 包括通用Bean、Security通用Bean及动态权限通用Bean
- * Created by macro on 2022/5/20.
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 @Configuration
 public class CommonSecurityConfig {

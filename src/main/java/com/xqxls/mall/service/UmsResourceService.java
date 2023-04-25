@@ -2,8 +2,6 @@ package com.xqxls.mall.service;
 
 import com.xqxls.mall.entity.UmsResourceEntity;
 
-import java.util.List;
-
 
 /**
  * 后台资源表 服务类接口
@@ -13,5 +11,4 @@ import java.util.List;
  */
 public interface UmsResourceService extends IService<UmsResourceEntity>{
 
-    List<UmsResourceEntity> findAll();
 }

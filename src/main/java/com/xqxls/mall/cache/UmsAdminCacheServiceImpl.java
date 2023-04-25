@@ -18,7 +18,9 @@ import java.util.stream.Collectors;
 
 /**
  * 后台用户缓存管理Service实现类
- * Created by macro on 2020/3/13.
+ *
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 @Service
 public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
@@ -49,7 +51,7 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
 
     @Override
     public void delAdmin(Long adminId) {
-        UmsAdminEntity admin = umsAdminService.selectByPrimaryKey(adminId);
+        UmsAdminEntity admin = umsAdminService.findById(adminId);
         if (admin != null) {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + admin.getUsername();
             redisService.del(key);

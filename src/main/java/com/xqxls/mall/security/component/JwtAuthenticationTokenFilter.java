@@ -19,7 +19,8 @@ import java.io.IOException;
 
 /**
  * JWT登录授权过滤器
- * Created by macro on 2018/4/26.
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {

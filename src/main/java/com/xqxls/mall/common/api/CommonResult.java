@@ -2,7 +2,9 @@ package com.xqxls.mall.common.api;
 
 /**
  * 通用返回对象
- * Created by macro on 2019/4/19.
+ *
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public class CommonResult<T> {
     private long code;

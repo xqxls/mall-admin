@@ -3,11 +3,13 @@ package com.xqxls.mall.service.impl;
 import com.xqxls.mall.base.TkBaseMapper;
 import com.xqxls.mall.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
 /**
  * 基础service实现类
  *
- * @author caojx created on 2021/3/12 5:35 下午
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
 
@@ -15,32 +17,33 @@ public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
     protected M mapper;
 
     @Override
-    public T selectByPrimaryKey(Long id) {
+    public T findById(Long id) {
         return mapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int deleteByPrimaryKey(Long id) {
+    public int deleteById(Long id) {
         return mapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int insert(T entity) {
+    public int add(T entity) {
         return mapper.insert(entity);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(T entity) {
+    public int update(T entity) {
         return mapper.updateByPrimaryKeySelective(entity);
     }
 
     @Override
-    public int updateByPrimaryKey(T entity) {
-        return mapper.updateByPrimaryKey(entity);
+    public List<T> findAll() {
+        return mapper.selectAll();
     }
 
     @Override
-    public int insertSelective(T entity) {
-        return mapper.insertSelective(entity);
+    public int insertList(List<T> list) {
+        return mapper.insertList(list);
     }
+
 }

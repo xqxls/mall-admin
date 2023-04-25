@@ -2,7 +2,9 @@ package com.xqxls.mall.common.api;
 
 /**
  * 枚举了一些常用API操作码
- * Created by macro on 2019/4/19.
+ *
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public enum ResultCode implements IErrorCode {
     SUCCESS(200, "操作成功"),

@@ -1,11 +1,11 @@
 package com.xqxls.mall.common.exception;
 
-
 import com.xqxls.mall.common.api.IErrorCode;
 
 /**
  * 自定义API异常
- * Created by macro on 2020/2/27.
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public class ApiException extends RuntimeException {
     private IErrorCode errorCode;

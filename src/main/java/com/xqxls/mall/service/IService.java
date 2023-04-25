@@ -1,9 +1,12 @@
 package com.xqxls.mall.service;
 
+import java.util.List;
+
 /**
  * 通用Service
  *
- * @author caojx created on 2021/3/12 5:23 下午
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 public interface IService<T> {
 
@@ -13,7 +16,7 @@ public interface IService<T> {
      * @param id 主键id
      * @return
      */
-    T selectByPrimaryKey(Long id);
+    T findById(Long id);
 
     /**
      * 插入数据库记录
@@ -21,15 +24,8 @@ public interface IService<T> {
      * @param entity 数据
      * @return
      */
-    int insert(T entity);
+    int add(T entity);
 
-    /**
-     * 插入数据库记录
-     *
-     * @param entity 数据
-     * @return
-     */
-    int insertSelective(T entity);
 
     /**
      * 根据主键更新数据
@@ -37,15 +33,8 @@ public interface IService<T> {
      * @param entity 数据
      * @return
      */
-    int updateByPrimaryKeySelective(T entity);
+    int update(T entity);
 
-    /**
-     * 根据主键更新数据
-     *
-     * @param entity 数据
-     * @return
-     */
-    int updateByPrimaryKey(T entity);
 
     /**
      * 根据主键删除数据
@@ -53,5 +42,18 @@ public interface IService<T> {
      * @param id 主键
      * @return
      */
-    int deleteByPrimaryKey(Long id);
+    int deleteById(Long id);
+
+    /**
+     * 查询所有数据
+     * @return
+     */
+    List<T> findAll();
+
+    /**
+     * 批量插入数据库记录
+     * @param list
+     * @return
+     */
+    int insertList(List<T> list);
 }

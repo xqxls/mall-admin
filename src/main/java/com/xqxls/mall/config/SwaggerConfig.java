@@ -11,14 +11,14 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
 import springfox.documentation.spring.web.plugins.WebFluxRequestHandlerProvider;
 import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Swagger API文档相关配置
- * Created by macro on 2018/4/26.
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 @Configuration
 @EnableSwagger2
@@ -27,10 +27,10 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     @Override
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
-                .apiBasePackage("com.macro.mall.tiny.modules")
+                .apiBasePackage("com.xqxls.mall")
                 .title("mall-tiny项目骨架")
                 .description("mall-tiny项目骨架相关接口文档")
-                .contactName("macro")
+                .contactName("xqxls")
                 .version("1.0")
                 .enableSecurity(true)
                 .build();

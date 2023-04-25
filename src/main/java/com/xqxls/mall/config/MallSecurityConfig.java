@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,7 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * mall-security模块相关配置
  * 自定义配置，用于配置如何获取用户信息及动态权限
- * Created by macro on 2019/11/9.
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 @Configuration
 public class MallSecurityConfig {
