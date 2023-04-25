@@ -1,6 +1,7 @@
 package com.xqxls.mall.mapper;
 
 import com.xqxls.mall.entity.UmsRoleMenuRelationEntity;
+import tk.mybatis.mapper.common.Mapper;
 
 /**
  * 后台角色菜单关系表 Mapper 接口
@@ -8,5 +9,5 @@ import com.xqxls.mall.entity.UmsRoleMenuRelationEntity;
  * @author xqxls
  * @date 2023-04-25 9:20 上午
  */
-public interface UmsRoleMenuRelationDao extends TkBaseMapper<UmsRoleMenuRelationEntity> {
+public interface UmsRoleMenuRelationDao extends Mapper<UmsRoleMenuRelationEntity> {
 }

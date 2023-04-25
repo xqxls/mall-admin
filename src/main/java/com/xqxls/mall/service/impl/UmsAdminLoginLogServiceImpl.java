@@ -1,6 +1,7 @@
 package com.xqxls.mall.service.impl;
 
 import com.xqxls.mall.service.UmsAdminLoginLogService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 /**

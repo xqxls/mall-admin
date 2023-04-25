@@ -1,21 +1,44 @@
+server:
+  port: 8080
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/mall_tiny?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: 123456
+  application:
+    name: mall-tiny
+  profiles:
+    active: dev
 
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
-    timeout: 10000ms
-    lettuce:
-      pool:
-        #最大连接数 默认8
-        max-active: 8
-        #最大连接阻塞时间
-        max-wait: 1000ms
-        #最大空闲连接，默认8
-        max-idle: 200
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mall-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+
+redis:
+  database: mall
+  key:
+    admin: 'ums:admin'
+    resourceList: 'ums:resourceList'
+  expire:
+    common: 86400 # 24小时
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/
+      - /swagger-resources/**
+      - /**/v2/api-docs
+      - /**/*.html
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /favicon.ico
+      - /actuator/**
+      - /druid/**
+      - /admin/login
+      - /admin/register
+      - /admin/info
+      - /admin/logout
+      - /test/**
