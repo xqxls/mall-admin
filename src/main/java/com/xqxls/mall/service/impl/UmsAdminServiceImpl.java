@@ -1,6 +1,8 @@
 package com.xqxls.mall.service.impl;
 
+import cn.hutool.core.lang.Snowflake;
 import com.xqxls.mall.common.exception.Asserts;
+import com.xqxls.mall.common.id.IdWorker;
 import com.xqxls.mall.domain.AdminUserDetails;
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsAdminLoginLogEntity;
@@ -79,6 +81,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         UmsAdminEntity umsAdminEntity = getAdminByUsername(username);
         if(umsAdminEntity==null) return;
         UmsAdminLoginLogEntity umsAdminLoginLogEntity = new UmsAdminLoginLogEntity();
+        umsAdminLoginLogEntity.setPrimaryId();
         umsAdminLoginLogEntity.setAdminId(umsAdminEntity.getId());
         umsAdminLoginLogEntity.setCreateTime(new Date());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

@@ -1,8 +1,7 @@
 package com.xqxls.mall.entity;
 
+import com.xqxls.mall.common.id.BaseEntity;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import lombok.Data;
@@ -18,13 +17,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "UmsAdminLoginLogEntity对象", description = "后台用户登录日志表")
 @Table(name = "ums_admin_login_log")
-public class UmsAdminLoginLogEntity implements Serializable {
-    /**
-     * 主键ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UmsAdminLoginLogEntity extends BaseEntity {
+
 
     /**
      * 用户ID
@@ -54,5 +48,4 @@ public class UmsAdminLoginLogEntity implements Serializable {
     @Column(name = "user_agent")
     private String userAgent;
 
-    private static final long serialVersionUID = 1L;
 }

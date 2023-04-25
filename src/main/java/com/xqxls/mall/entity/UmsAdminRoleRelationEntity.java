@@ -1,5 +1,7 @@
 package com.xqxls.mall.entity;
 
+import com.xqxls.mall.common.id.BaseEntity;
+import com.xqxls.mall.common.id.IdWorker;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -17,13 +19,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "UmsAdminRoleRelationEntity对象", description = "后台用户和角色关系表")
 @Table(name = "ums_admin_role_relation")
-public class UmsAdminRoleRelationEntity implements Serializable {
-    /**
-     * 主键ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UmsAdminRoleRelationEntity extends BaseEntity {
+
 
     /**
      * 用户ID
@@ -37,5 +34,4 @@ public class UmsAdminRoleRelationEntity implements Serializable {
     @Column(name = "role_id")
     private Long roleId;
 
-    private static final long serialVersionUID = 1L;
 }

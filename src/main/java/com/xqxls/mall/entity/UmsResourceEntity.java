@@ -1,5 +1,7 @@
 package com.xqxls.mall.entity;
 
+import com.xqxls.mall.common.id.BaseEntity;
+import com.xqxls.mall.common.id.IdWorker;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -7,6 +9,7 @@ import java.util.Date;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 后台资源表 实体
@@ -18,13 +21,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "UmsResourceEntity对象", description = "后台资源表")
 @Table(name = "ums_resource")
-public class UmsResourceEntity implements Serializable {
-    /**
-     * 主键ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UmsResourceEntity extends BaseEntity {
+
 
     /**
      * 创建时间
@@ -53,5 +51,4 @@ public class UmsResourceEntity implements Serializable {
     @Column(name = "category_id")
     private Long categoryId;
 
-    private static final long serialVersionUID = 1L;
 }

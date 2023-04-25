@@ -1,5 +1,7 @@
 package com.xqxls.mall.entity;
 
+import com.xqxls.mall.common.id.BaseEntity;
+import com.xqxls.mall.common.id.IdWorker;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -17,13 +19,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "UmsRoleMenuRelationEntity对象", description = "后台角色菜单关系表")
 @Table(name = "ums_role_menu_relation")
-public class UmsRoleMenuRelationEntity implements Serializable {
-    /**
-     * 主键ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UmsRoleMenuRelationEntity extends BaseEntity {
 
     /**
      * 角色ID
@@ -37,5 +33,4 @@ public class UmsRoleMenuRelationEntity implements Serializable {
     @Column(name = "menu_id")
     private Long menuId;
 
-    private static final long serialVersionUID = 1L;
 }
