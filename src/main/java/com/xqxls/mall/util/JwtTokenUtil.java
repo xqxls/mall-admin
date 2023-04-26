@@ -27,13 +27,17 @@ import java.util.Map;
  * @Date: Created in 2023/4/25 22:10
  */
 public class JwtTokenUtil {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
+
     @Value("${jwt.secret}")
     private String secret;
+
     @Value("${jwt.expiration}")
     private Long expiration;
+
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
@@ -145,7 +149,7 @@ public class JwtTokenUtil {
             return null;
         }
         //如果token在30分钟之内刚刷新过，返回原token
-        if(tokenRefreshJustBefore(token,30*60)){
+        if(tokenRefreshJustBefore(token)){
             return token;
         }else{
             claims.put(CLAIM_KEY_CREATED, new Date());
@@ -156,16 +160,13 @@ public class JwtTokenUtil {
     /**
      * 判断token在指定时间内是否刚刚刷新过
      * @param token 原token
-     * @param time 指定时间（秒）
+     *
      */
-    private boolean tokenRefreshJustBefore(String token, int time) {
+    private boolean tokenRefreshJustBefore(String token) {
         Claims claims = getClaimsFromToken(token);
         Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
         Date refreshDate = new Date();
         //刷新时间在创建时间的指定时间内
-        if(refreshDate.after(created)&&refreshDate.before(DateUtil.offsetSecond(created,time))){
-            return true;
-        }
-        return false;
+        return refreshDate.after(created) && refreshDate.before(DateUtil.offsetSecond(created, 30*60));
     }
 }

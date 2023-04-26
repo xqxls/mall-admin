@@ -1,6 +1,9 @@
 package com.xqxls.mall.service;
 
+import com.xqxls.mall.entity.UmsMenuEntity;
 import com.xqxls.mall.entity.UmsRoleEntity;
+
+import java.util.List;
 
 /**
  * 后台用户角色表 服务类接口
@@ -10,4 +13,5 @@ import com.xqxls.mall.entity.UmsRoleEntity;
  */
 public interface UmsRoleService extends IService<UmsRoleEntity>{
 
+    List<UmsMenuEntity> getMenuList(Long adminId);
 }

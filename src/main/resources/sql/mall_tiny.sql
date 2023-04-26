@@ -1,7 +1,5 @@
 
 
-SET FOREIGN_KEY_CHECKS=0;
-
 DROP TABLE IF EXISTS `ums_admin`;
 CREATE TABLE `ums_admin` (
   `id` bigint(20) NOT NULL COMMENT '主键ID',
@@ -15,7 +13,7 @@ CREATE TABLE `ums_admin` (
   `login_time` datetime DEFAULT NULL COMMENT '最后登录时间',
   `status` int(1) DEFAULT '1' COMMENT '帐号启用状态：0->禁用；1->启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台用户表';
 
 INSERT INTO `ums_admin` VALUES ('1', 'test', '$2a$10$NZ5o7r2E.ayT2ZoxgjlI.eJ6OEYqjH7INR/F.mXDbjZJi9HF0YCVG', 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/timg.jpg', 'test@qq.com', '测试账号', null, '2018-09-29 13:55:30', '2018-09-29 13:55:39', '1');
 INSERT INTO `ums_admin` VALUES ('3', 'admin', '$2a$10$.E1FokumK5GIXWgKlg.Hc.i/0/2.qdAwYFL1zc5QHdyzpXOr38RZO', 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/timg.jpg', 'admin@163.com', '系统管理员', '系统管理员', '2018-10-08 13:32:47', '2019-04-20 12:45:16', '1');
@@ -34,7 +32,7 @@ CREATE TABLE `ums_admin_login_log` (
   `address` varchar(100) DEFAULT NULL COMMENT '地址',
   `user_agent` varchar(100) DEFAULT NULL COMMENT '浏览器登录类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8 COMMENT='后台用户登录日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台用户登录日志表';
 
 
 INSERT INTO `ums_admin_login_log` VALUES ('285', '3', '2020-08-24 14:05:21', '0:0:0:0:0:0:0:1', null, null);
@@ -47,7 +45,7 @@ CREATE TABLE `ums_admin_role_relation` (
   `admin_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台用户和角色关系表';
 
 
 INSERT INTO `ums_admin_role_relation` VALUES ('26', '3', '5');
@@ -73,7 +71,7 @@ CREATE TABLE `ums_menu` (
   `icon` varchar(200) DEFAULT NULL COMMENT '前端图标',
   `hidden` int(1) DEFAULT NULL COMMENT '前端隐藏',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台菜单表';
 
 
 INSERT INTO `ums_menu` VALUES ('1', '0', '2020-02-02 14:50:36', '商品', '0', '0', 'pms', 'product', '1');
@@ -111,7 +109,7 @@ CREATE TABLE `ums_resource` (
   `description` varchar(500) DEFAULT NULL COMMENT '描述',
   `category_id` bigint(20) DEFAULT NULL COMMENT '资源分类ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='后台资源表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台资源表';
 
 
 INSERT INTO `ums_resource` VALUES ('1', '2020-02-04 17:04:55', '商品品牌管理', '/brand/**', null, '1');
@@ -151,7 +149,7 @@ CREATE TABLE `ums_resource_category` (
   `name` varchar(200) DEFAULT NULL COMMENT '分类名称',
   `sort` int(4) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='资源分类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资源分类表';
 
 
 INSERT INTO `ums_resource_category` VALUES ('1', '2020-02-05 10:21:44', '商品模块', '0');
@@ -172,7 +170,7 @@ CREATE TABLE `ums_role` (
   `status` int(1) DEFAULT '1' COMMENT '启用状态：0->禁用；1->启用',
   `sort` int(11) DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='后台用户角色表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台用户角色表';
 
 
 INSERT INTO `ums_role` VALUES ('1', '商品管理员', '只能查看及操作商品', '0', '2020-02-03 16:50:37', '1', '0');
@@ -187,7 +185,7 @@ CREATE TABLE `ums_role_menu_relation` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 COMMENT='后台角色菜单关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台角色菜单关系表';
 
 
 INSERT INTO `ums_role_menu_relation` VALUES ('33', '1', '1');
@@ -248,7 +246,7 @@ CREATE TABLE `ums_role_resource_relation` (
   `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `resource_id` bigint(20) DEFAULT NULL COMMENT '资源ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8 COMMENT='后台角色资源关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='后台角色资源关系表';
 
 
 INSERT INTO `ums_role_resource_relation` VALUES ('103', '2', '8');
