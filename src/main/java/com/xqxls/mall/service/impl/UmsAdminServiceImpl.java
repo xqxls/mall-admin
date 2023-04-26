@@ -259,7 +259,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
                 roleRelation.setRoleId(roleId);
                 list.add(roleRelation);
             }
-            umsAdminRoleRelationDao.addBatch(list);
+            umsAdminRoleRelationDao.insertBatch(list);
         }
         this.getCacheService().delResourceList(adminId);
         return count;
