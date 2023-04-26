@@ -1,20 +1,17 @@
 package com.xqxls.mall.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.cache.UmsAdminCacheService;
-import com.xqxls.mall.common.api.CommonResult;
 import com.xqxls.mall.common.exception.Asserts;
 import com.xqxls.mall.convert.mapstruct.UmsAdminMapper;
 import com.xqxls.mall.domain.AdminUserDetails;
 import com.xqxls.mall.dto.UmsAdminRegisterDto;
-import com.xqxls.mall.entity.UmsAdminEntity;
-import com.xqxls.mall.entity.UmsAdminLoginLogEntity;
-import com.xqxls.mall.entity.UmsResourceEntity;
-import com.xqxls.mall.entity.UmsRoleEntity;
-import com.xqxls.mall.mapper.UmsAdminDao;
-import com.xqxls.mall.mapper.UmsAdminLoginLogDao;
-import com.xqxls.mall.mapper.UmsResourceDao;
-import com.xqxls.mall.mapper.UmsRoleDao;
+import com.xqxls.mall.dto.UpdateAdminPasswordDto;
+import com.xqxls.mall.entity.*;
+import com.xqxls.mall.mapper.*;
 import com.xqxls.mall.service.UmsAdminService;
 import com.xqxls.mall.service.UmsRoleService;
 import com.xqxls.mall.util.JwtTokenUtil;
@@ -58,6 +55,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
 
     @Autowired
     private UmsAdminLoginLogDao umsAdminLoginLogDao;
+
+    @Autowired
+    private UmsAdminRoleRelationDao umsAdminRoleRelationDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -178,6 +178,91 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
             data.put("roles",roles);
         }
         return data;
+    }
+
+    @Override
+    public PageInfo<UmsAdminEntity> list(String keyword, Integer page, Integer size) {
+        //分页
+        PageHelper.startPage(page,size);
+        Example example = new Example(UmsAdminEntity.class);
+        Example.Criteria criteria = example.createCriteria();
+        if(StrUtil.isNotEmpty(keyword)){
+            criteria.andLike("username", "%"+keyword+"%");
+            criteria.orLike("nickName", "%"+keyword+"%");
+        }
+        return new PageInfo<>(umsAdminDao.selectByExample(example));
+    }
+
+    @Override
+    public int update(Long id, UmsAdminEntity admin) {
+        admin.setId(id);
+        UmsAdminEntity queryAdminEntity = this.findById(id);
+        if(queryAdminEntity.getPassword().equals(admin.getPassword())){
+            //与原加密密码相同的不需要修改
+            admin.setPassword(null);
+        }else{
+            //与原加密密码不同的需要加密修改
+            if(StrUtil.isEmpty(admin.getPassword())){
+                admin.setPassword(null);
+            }else{
+                admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+            }
+        }
+        this.getCacheService().delAdmin(id);
+        return this.update(admin);
+    }
+
+    @Override
+    public int updatePassword(UpdateAdminPasswordDto dto) {
+        if(StrUtil.isEmpty(dto.getUsername())
+                ||StrUtil.isEmpty(dto.getOldPassword())
+                ||StrUtil.isEmpty(dto.getNewPassword())){
+            return -1;
+        }
+        UmsAdminEntity queryAdminEntity = this.getAdminByUsername(dto.getUsername());
+        if(Objects.isNull(queryAdminEntity)){
+            return -2;
+        }
+        if(!passwordEncoder.matches(dto.getOldPassword(),queryAdminEntity.getPassword())){
+            return -3;
+        }
+        queryAdminEntity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        this.update(queryAdminEntity);
+        getCacheService().delAdmin(queryAdminEntity.getId());
+        return 1;
+    }
+
+    @Override
+    public int delete(Long id) {
+        this.getCacheService().delAdmin(id);
+        int count = this.deleteById(id);
+        this.getCacheService().delResourceList(id);
+        return count;
+    }
+
+    @Override
+    public int allocateRole(Long adminId, List<Long> roleIds) {
+        int count = roleIds == null ? 0 : roleIds.size();
+        // 删除原来的角色
+        Example example = new Example(UmsAdminRoleRelationEntity.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("adminId", adminId);
+        umsAdminRoleRelationDao.deleteByExample(example);
+
+        // 绑定新角色
+        if(!CollectionUtils.isEmpty(roleIds)){
+            List<UmsAdminRoleRelationEntity> list = new ArrayList<>();
+            for (Long roleId : roleIds) {
+                UmsAdminRoleRelationEntity roleRelation = new UmsAdminRoleRelationEntity();
+                roleRelation.setPrimaryId();
+                roleRelation.setAdminId(adminId);
+                roleRelation.setRoleId(roleId);
+                list.add(roleRelation);
+            }
+            umsAdminRoleRelationDao.addBatch(list);
+        }
+        this.getCacheService().delResourceList(adminId);
+        return count;
     }
 
     @Override

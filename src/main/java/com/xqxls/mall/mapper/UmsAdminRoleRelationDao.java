@@ -2,7 +2,10 @@ package com.xqxls.mall.mapper;
 
 import com.xqxls.mall.base.TkBaseMapper;
 import com.xqxls.mall.entity.UmsAdminRoleRelationEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 后台用户和角色关系表 Mapper 接口
@@ -12,4 +15,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface UmsAdminRoleRelationDao extends TkBaseMapper<UmsAdminRoleRelationEntity> {
+
+    int addBatch(@Param("list") List<UmsAdminRoleRelationEntity> list);
 }

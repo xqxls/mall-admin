@@ -1,7 +1,7 @@
 package com.xqxls.mall.common.api;
 
 import cn.hutool.core.convert.Convert;
-import org.springframework.data.domain.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -21,13 +21,13 @@ public class CommonPage<T> {
     /**
      * 将MyBatis Plus 分页结果转化为通用结果
      */
-    public static <T> CommonPage<T> restPage(Page<T> pageResult) {
+    public static <T> CommonPage<T> restPage(PageInfo<T> pageResult) {
         CommonPage<T> result = new CommonPage<>();
-        result.setPageNum(Convert.toInt(pageResult.getNumber()));
-        result.setPageSize(Convert.toInt(pageResult.getSize()));
-        result.setTotal(pageResult.getTotalElements());
-        result.setTotalPage(Convert.toInt(pageResult.getTotalElements()/pageResult.getSize()+1));
-        result.setList(pageResult.getContent());
+        result.setPageNum(Convert.toInt(pageResult.getPageNum()));
+        result.setPageSize(Convert.toInt(pageResult.getPageSize()));
+        result.setTotal(pageResult.getTotal());
+        result.setTotalPage(Convert.toInt(pageResult.getTotal()/pageResult.getPageSize()+1));
+        result.setList(pageResult.getList());
         return result;
     }
 

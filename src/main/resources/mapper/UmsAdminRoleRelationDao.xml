@@ -9,4 +9,20 @@
     <result column="admin_id" jdbcType="BIGINT" property="adminId" />
     <result column="role_id" jdbcType="BIGINT" property="roleId" />
   </resultMap>
+
+  <insert id="addBatch">
+    insert into ums_admin_role_relation
+    (
+    id,
+    admin_id,
+    role_id
+    ) values
+    <foreach collection="list" item="item" separator=",">
+      (
+      #{item.id},
+      #{item.adminId},
+      #{item.roleId}
+      )
+    </foreach>
+  </insert>
 </mapper>

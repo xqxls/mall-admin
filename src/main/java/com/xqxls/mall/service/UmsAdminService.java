@@ -1,8 +1,9 @@
 package com.xqxls.mall.service;
 
-
+import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.cache.UmsAdminCacheService;
 import com.xqxls.mall.dto.UmsAdminRegisterDto;
+import com.xqxls.mall.dto.UpdateAdminPasswordDto;
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsResourceEntity;
 import com.xqxls.mall.entity.UmsRoleEntity;
@@ -83,5 +84,20 @@ public interface UmsAdminService extends IService<UmsAdminEntity>{
      */
     Map<String,Object> getAdminInfoByPrincipal(Principal principal);
 
+    /**
+     * 根据用户名或昵称分页查询用户
+     * @param keyword
+     * @param page
+     * @param size
+     * @return
+     */
+    PageInfo<UmsAdminEntity> list(String keyword, Integer page, Integer size);
 
+    int update(Long id, UmsAdminEntity admin);
+
+    int updatePassword(UpdateAdminPasswordDto updateAdminPasswordDto);
+
+    int delete(Long id);
+
+    int allocateRole(Long adminId, List<Long> roleIds);
 }

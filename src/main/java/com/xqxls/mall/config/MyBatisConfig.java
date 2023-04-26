@@ -1,6 +1,7 @@
 package com.xqxls.mall.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -9,6 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @Date: Created in 2023/4/25 22:10
  */
 @Configuration
+@EnableTransactionManagement
 @MapperScan({"com.xqxls.mall.mapper"})
 public class MyBatisConfig {
 
