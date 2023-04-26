@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -57,7 +58,7 @@ public class IdWorkerAutoConfiguration {
         Snowflake snowflake = new Snowflake(workerId, dataCenterId);
         SnowIdWorker.setSnowflake(snowflake);
         snowIdWorker = new SnowIdWorker();
-        snowIdWorker.setSnowflake(snowflake);
+        SnowIdWorker.setSnowflake(snowflake);
         return snowIdWorker;
     }
 
@@ -79,7 +80,7 @@ public class IdWorkerAutoConfiguration {
             log.info("使用随机数[{}]作为机器id", i);
             return i;
         }
-        RedisAtomicLong redisAtomicLong = new RedisAtomicLong(REDIS_KEY + serverName, redisTemplate.getConnectionFactory());
+        RedisAtomicLong redisAtomicLong = new RedisAtomicLong(REDIS_KEY + serverName, Objects.requireNonNull(redisTemplate.getConnectionFactory()));
         long l = redisAtomicLong.incrementAndGet();
         int i = (int) (l % 32);
         log.info("使用自增值[{}]作为机器id, redisAtomicLong [{}]", i, l);

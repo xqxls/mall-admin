@@ -24,14 +24,19 @@ public class SecurityConfig {
 
     @Autowired
     private IgnoreUrlsConfig ignoreUrlsConfig;
+
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
     @Autowired
     private DynamicSecurityService dynamicSecurityService;
+
     @Autowired
     private DynamicSecurityFilter dynamicSecurityFilter;
 

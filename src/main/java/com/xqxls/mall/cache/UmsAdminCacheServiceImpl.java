@@ -8,6 +8,7 @@ import com.xqxls.mall.entity.UmsResourceEntity;
 import com.xqxls.mall.mapper.UmsAdminDao;
 import com.xqxls.mall.mapper.UmsAdminRoleRelationDao;
 import com.xqxls.mall.service.UmsAdminService;
+import com.xqxls.mall.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -115,7 +116,7 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
     @Override
     public List<UmsResourceEntity> getResourceList(Long adminId) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":" + adminId;
-        return (List<UmsResourceEntity>) redisService.get(key);
+        return ObjectUtil.objectToList(redisService.get(key),UmsResourceEntity.class);
     }
 
     @Override

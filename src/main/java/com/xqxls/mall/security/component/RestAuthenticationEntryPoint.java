@@ -16,6 +16,7 @@ import java.io.IOException;
  * @Date: Created in 2023/4/25 22:10
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.setHeader("Access-Control-Allow-Origin", "*");

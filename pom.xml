@@ -23,6 +23,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <pagehelper.version>1.2.12</pagehelper.version>
+        <fastjson.version>1.2.71</fastjson.version>
     </properties>
     <dependencies>
 
@@ -128,6 +129,13 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.version}</version>
+        </dependency>
+
+        <!--阿里巴巴 fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
 
