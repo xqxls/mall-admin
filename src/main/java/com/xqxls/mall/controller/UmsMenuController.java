@@ -3,7 +3,7 @@ package com.xqxls.mall.controller;
 import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.common.api.CommonPage;
 import com.xqxls.mall.common.api.CommonResult;
-import com.xqxls.mall.dto.UmsMenuNode;
+import com.xqxls.mall.dto.node.UmsMenuNode;
 import com.xqxls.mall.entity.UmsMenuEntity;
 import com.xqxls.mall.service.UmsMenuService;
 import io.swagger.annotations.Api;
@@ -40,7 +40,7 @@ public class UmsMenuController {
     }
 
     @ApiOperation("修改后台菜单")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsMenuEntity umsMenuEntity) {
         int count = umsMenuService.update(id, umsMenuEntity);
@@ -60,7 +60,7 @@ public class UmsMenuController {
     }
 
     @ApiOperation("根据ID删除后台菜单")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = umsMenuService.deleteById(id);
@@ -89,7 +89,7 @@ public class UmsMenuController {
     }
 
     @ApiOperation("修改菜单显示状态")
-    @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public CommonResult<Integer> updateHidden(@PathVariable Long id, @RequestParam("hidden") Integer hidden) {
         int count = umsMenuService.updateHidden(id, hidden);

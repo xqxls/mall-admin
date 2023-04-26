@@ -68,7 +68,7 @@ public class UmsAdminController {
     }
 
     @ApiOperation(value = "刷新token")
-    @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
+    @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Map<String,String>> refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
@@ -118,7 +118,7 @@ public class UmsAdminController {
     }
 
     @ApiOperation("修改指定用户信息")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsAdminEntity admin) {
         int count = adminService.update(id, admin);
@@ -129,7 +129,7 @@ public class UmsAdminController {
     }
 
     @ApiOperation("修改指定用户密码")
-    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
     @ResponseBody
     public CommonResult<Integer> updatePassword(@Validated @RequestBody UpdateAdminPasswordDto updateAdminPasswordDto) {
         int status = adminService.updatePassword(updateAdminPasswordDto);
@@ -147,7 +147,7 @@ public class UmsAdminController {
     }
 
     @ApiOperation("删除指定用户信息")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = adminService.delete(id);
@@ -158,7 +158,7 @@ public class UmsAdminController {
     }
 
     @ApiOperation("修改帐号状态")
-    @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public CommonResult<Void> updateStatus(@PathVariable Long id,@RequestParam(value = "status") Integer status) {
         UmsAdminEntity umsAdmin = new UmsAdminEntity();
@@ -171,7 +171,7 @@ public class UmsAdminController {
     }
 
     @ApiOperation("给用户分配角色")
-    @RequestMapping(value = "/role/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/allocateRole", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Integer> allocateRole(@RequestParam("adminId") Long adminId,
                                    @RequestParam("roleIds") List<Long> roleIds) {

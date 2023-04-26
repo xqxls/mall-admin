@@ -1,4 +1,4 @@
-package com.xqxls.mall.dto;
+package com.xqxls.mall.dto.node;
 
 import com.xqxls.mall.entity.UmsMenuEntity;
 import io.swagger.annotations.ApiModelProperty;

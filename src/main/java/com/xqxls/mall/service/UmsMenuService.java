@@ -1,7 +1,7 @@
 package com.xqxls.mall.service;
 
 import com.github.pagehelper.PageInfo;
-import com.xqxls.mall.dto.UmsMenuNode;
+import com.xqxls.mall.dto.node.UmsMenuNode;
 import com.xqxls.mall.entity.UmsMenuEntity;
 
 import java.util.List;
