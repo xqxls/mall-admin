@@ -93,11 +93,33 @@ public interface UmsAdminService extends IService<UmsAdminEntity>{
      */
     PageInfo<UmsAdminEntity> list(String keyword, Integer page, Integer size);
 
+    /**
+     * 修改用户
+     * @param id
+     * @param admin
+     * @return
+     */
     int update(Long id, UmsAdminEntity admin);
 
+    /**
+     * 修改密码
+     * @param updateAdminPasswordDto
+     * @return
+     */
     int updatePassword(UpdateAdminPasswordDto updateAdminPasswordDto);
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
     int delete(Long id);
 
+    /**
+     * 给用户分配角色
+     * @param adminId
+     * @param roleIds
+     * @return
+     */
     int allocateRole(Long adminId, List<Long> roleIds);
 }

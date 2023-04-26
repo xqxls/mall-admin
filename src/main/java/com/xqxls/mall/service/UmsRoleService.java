@@ -13,5 +13,10 @@ import java.util.List;
  */
 public interface UmsRoleService extends IService<UmsRoleEntity>{
 
+    /**
+     * 获取用户对应菜单列表
+     * @param adminId
+     * @return
+     */
     List<UmsMenuEntity> getMenuList(Long adminId);
 }

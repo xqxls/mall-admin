@@ -42,9 +42,5 @@ public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
         return mapper.selectAll();
     }
 
-    @Override
-    public int insertList(List<T> list) {
-        return mapper.insertList(list);
-    }
 
 }
