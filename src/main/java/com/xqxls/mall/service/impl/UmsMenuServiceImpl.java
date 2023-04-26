@@ -2,6 +2,7 @@ package com.xqxls.mall.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xqxls.mall.convert.mapstruct.UmsMenuMapper;
 import com.xqxls.mall.dto.UmsMenuNode;
 import com.xqxls.mall.entity.UmsMenuEntity;
 import com.xqxls.mall.mapper.UmsMenuDao;
@@ -91,8 +92,7 @@ public class UmsMenuServiceImpl  extends ServiceImpl<UmsMenuDao, UmsMenuEntity> 
      * 将UmsMenu转化为UmsMenuNode并设置children属性
      */
     private UmsMenuNode covertMenuNode(UmsMenuEntity menu, List<UmsMenuEntity> menuList) {
-        UmsMenuNode node = new UmsMenuNode();
-        BeanUtils.copyProperties(menu, node);
+        UmsMenuNode node = UmsMenuMapper.INSTANCE.umsMenuEntityToNode(menu);
         List<UmsMenuNode> children = menuList.stream()
                 .filter(subMenu -> subMenu.getParentId().equals(menu.getId()))
                 .map(subMenu -> covertMenuNode(subMenu, menuList)).collect(Collectors.toList());
