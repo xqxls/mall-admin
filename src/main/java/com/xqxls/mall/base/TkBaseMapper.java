@@ -1,4 +1,4 @@
-package com.xqxls.mall.common.base;
+package com.xqxls.mall.base;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

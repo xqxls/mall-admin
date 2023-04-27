@@ -1,6 +1,6 @@
 package com.xqxls.mall.mapper;
 
-import com.xqxls.mall.common.base.TkBaseMapper;
+import com.xqxls.mall.base.TkBaseMapper;
 import com.xqxls.mall.entity.UmsRoleEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -20,4 +20,10 @@ public interface UmsRoleDao extends TkBaseMapper<UmsRoleEntity> {
      * 获取用户所有角色
      */
     List<UmsRoleEntity> getRoleList(@Param("adminId") Long adminId);
+
+    /**
+     * 批量删除角色
+     * @param ids
+     */
+    void delByIds(@Param("ids") List<Long> ids);
 }

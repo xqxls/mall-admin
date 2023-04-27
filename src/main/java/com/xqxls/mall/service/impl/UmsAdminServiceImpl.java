@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xqxls.mall.common.cache.UmsAdminCacheService;
+import com.xqxls.mall.cache.UmsAdminCacheService;
 import com.xqxls.mall.common.exception.Asserts;
 import com.xqxls.mall.convert.mapstruct.UmsAdminMapper;
 import com.xqxls.mall.domain.AdminUserDetails;
@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -101,6 +102,8 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
         if(attributes!=null){
             HttpServletRequest request = attributes.getRequest();
             umsAdminLoginLogEntity.setIp(request.getRemoteAddr());
+            umsAdminLoginLogEntity.setUserAgent(request.getHeader("User-Agent"));
+            umsAdminLoginLogEntity.setAddress(request.getRemoteHost()+":"+request.getRemotePort());
         }
         umsAdminLoginLogDao.insert(umsAdminLoginLogEntity);
     }
@@ -233,14 +236,19 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int delete(Long id) {
         this.getCacheService().delAdmin(id);
+        // 删除用户角色关系
+        umsAdminRoleRelationDao.delByAdminId(id);
+        // 删除用户
         int count = this.deleteById(id);
         this.getCacheService().delResourceList(id);
         return count;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int allocateRole(Long adminId, List<Long> roleIds) {
         int count = roleIds == null ? 0 : roleIds.size();
         // 删除原来的角色

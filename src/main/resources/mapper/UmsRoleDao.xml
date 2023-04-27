@@ -20,4 +20,12 @@
     where ar.admin_id = #{adminId}
   </select>
 
+  <delete id="delByIds" >
+    delete from ums_role
+    where id in
+    <foreach item="id" collection="ids" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
 </mapper>

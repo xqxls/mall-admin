@@ -1,6 +1,6 @@
 package com.xqxls.mall.mapper;
 
-import com.xqxls.mall.common.base.TkBaseMapper;
+import com.xqxls.mall.base.TkBaseMapper;
 import com.xqxls.mall.entity.UmsMenuEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -20,4 +20,6 @@ public interface UmsMenuDao extends TkBaseMapper<UmsMenuEntity> {
      * 根据后台用户ID获取菜单
      */
     List<UmsMenuEntity> getMenuList(@Param("adminId") Long adminId);
+
+    List<UmsMenuEntity> getMenuListByRoleId(@Param("roleId") Long roleId);
 }

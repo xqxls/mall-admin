@@ -43,7 +43,7 @@ public class UmsResourceCategoryController {
     }
 
     @ApiOperation("修改后台资源分类")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public CommonResult<Void> update(@PathVariable Long id,
                                @RequestBody UmsResourceCategoryEntity umsResourceCategory) {
         umsResourceCategory.setId(id);
@@ -53,6 +53,16 @@ public class UmsResourceCategoryController {
         } else {
             return CommonResult.failed();
         }
-        //TODO: 添加自定义注解实现日志、缓存逻辑，用户删除接口调整
+    }
+
+    @ApiOperation("根据ID删除后台资源")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public CommonResult<Void> delete(@PathVariable Long id) {
+        int count = umsResourceCategoryService.deleteById(id);
+        if (count>0) {
+            return CommonResult.success(null);
+        } else {
+            return CommonResult.failed();
+        }
     }
 }

@@ -306,3 +306,13 @@ INSERT INTO `ums_role_resource_relation` VALUES ('212', '8', '26');
 INSERT INTO `ums_role_resource_relation` VALUES ('213', '8', '27');
 INSERT INTO `ums_role_resource_relation` VALUES ('214', '8', '28');
 INSERT INTO `ums_role_resource_relation` VALUES ('215', '8', '29');
+
+DROP TABLE IF EXISTS `ums_web_log`;
+CREATE TABLE `ums_web_log` (
+    `id` bigint(20) NOT NULL COMMENT '主键ID',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `method` varchar(255) DEFAULT NULL COMMENT '方法',
+    `param` json DEFAULT NULL COMMENT '参数',
+    `spend_time` bigint(20) DEFAULT NULL COMMENT '耗时',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='方法监控日志表';

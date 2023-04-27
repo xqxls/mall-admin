@@ -1,4 +1,4 @@
-package com.xqxls.mall.common.base.provider;
+package com.xqxls.mall.base.provider;
 
 import org.apache.ibatis.mapping.MappedStatement;
 import tk.mybatis.mapper.entity.EntityColumn;

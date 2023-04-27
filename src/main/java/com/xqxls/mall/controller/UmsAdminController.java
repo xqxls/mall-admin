@@ -1,6 +1,7 @@
 package com.xqxls.mall.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.xqxls.mall.aop.annotation.WebLog;
 import com.xqxls.mall.common.api.CommonPage;
 import com.xqxls.mall.common.api.CommonResult;
 import com.xqxls.mall.dto.UmsAdminLoginDto;
@@ -44,6 +45,7 @@ public class UmsAdminController {
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @WebLog
     public CommonResult<Map<String,String>> login(@Validated @RequestBody UmsAdminLoginDto umsAdminLoginDto) {
         String token = adminService.login(umsAdminLoginDto.getUsername(), umsAdminLoginDto.getPassword());
         if (token == null) {

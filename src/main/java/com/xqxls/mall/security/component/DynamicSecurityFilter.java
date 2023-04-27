@@ -23,6 +23,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
 
     @Autowired
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+
     @Autowired
     private IgnoreUrlsConfig ignoreUrlsConfig;
 

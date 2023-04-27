@@ -1,5 +1,6 @@
 package com.xqxls.mall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.entity.UmsResourceEntity;
 
 
@@ -11,4 +12,11 @@ import com.xqxls.mall.entity.UmsResourceEntity;
  */
 public interface UmsResourceService extends IService<UmsResourceEntity>{
 
+    int create(UmsResourceEntity umsResourceEntity);
+
+    int update(Long id, UmsResourceEntity umsResourceEntity);
+
+    int delete(Long id);
+
+    PageInfo<UmsResourceEntity> list(Long categoryId, String nameKeyword, String urlKeyword, Integer page, Integer size);
 }

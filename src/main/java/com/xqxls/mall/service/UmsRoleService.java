@@ -1,6 +1,8 @@
 package com.xqxls.mall.service;
 
+import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.entity.UmsMenuEntity;
+import com.xqxls.mall.entity.UmsResourceEntity;
 import com.xqxls.mall.entity.UmsRoleEntity;
 
 import java.util.List;
@@ -19,4 +21,18 @@ public interface UmsRoleService extends IService<UmsRoleEntity>{
      * @return
      */
     List<UmsMenuEntity> getMenuList(Long adminId);
+
+    int create(UmsRoleEntity umsRoleEntity);
+
+    void deleteByIds(List<Long> ids);
+
+    PageInfo<UmsRoleEntity> list(String keyword, Integer page, Integer size);
+
+    List<UmsMenuEntity> listMenu(Long roleId);
+
+    List<UmsResourceEntity> listResource(Long roleId);
+
+    int allocMenu(Long roleId, List<Long> menuIds);
+
+    int allocResource(Long roleId, List<Long> resourceIds);
 }

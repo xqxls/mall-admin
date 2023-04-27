@@ -1,6 +1,6 @@
 package com.xqxls.mall.mapper;
 
-import com.xqxls.mall.common.base.TkBaseMapper;
+import com.xqxls.mall.base.TkBaseMapper;
 import com.xqxls.mall.entity.UmsResourceEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -20,4 +20,6 @@ public interface UmsResourceDao extends TkBaseMapper<UmsResourceEntity> {
      * 获取用户所有可访问资源
      */
     List<UmsResourceEntity> getResourceList(@Param("adminId") Long adminId);
+
+    List<UmsResourceEntity> getResourceListByRoleId(@Param("roleId") Long roleId);
 }

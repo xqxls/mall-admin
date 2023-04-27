@@ -1,4 +1,4 @@
-package com.xqxls.mall.common.cache;
+package com.xqxls.mall.cache;
 
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsResourceEntity;
@@ -52,7 +52,7 @@ public interface UmsAdminCacheService {
     List<UmsResourceEntity> getResourceList(Long adminId);
 
     /**
-     * 设置后台后台用户资源列表
+     * 设置后台用户资源列表
      */
     void setResourceList(Long adminId, List<UmsResourceEntity> resourceList);
 }

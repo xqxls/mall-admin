@@ -1,4 +1,4 @@
-package com.xqxls.mall.common.cache;
+package com.xqxls.mall.cache;
 
 import cn.hutool.core.collection.CollUtil;
 import com.xqxls.mall.common.service.RedisService;

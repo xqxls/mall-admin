@@ -1,7 +1,7 @@
 package com.xqxls.mall.service;
 
 import com.github.pagehelper.PageInfo;
-import com.xqxls.mall.common.cache.UmsAdminCacheService;
+import com.xqxls.mall.cache.UmsAdminCacheService;
 import com.xqxls.mall.dto.UmsAdminRegisterDto;
 import com.xqxls.mall.dto.UpdateAdminPasswordDto;
 import com.xqxls.mall.entity.UmsAdminEntity;
