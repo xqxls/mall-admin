@@ -1,4 +1,4 @@
-package com.xqxls.mall.common.service;
+package com.xqxls.mall.common.cache;
 
 import java.util.List;
 import java.util.Map;

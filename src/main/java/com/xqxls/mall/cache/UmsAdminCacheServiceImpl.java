@@ -1,7 +1,7 @@
 package com.xqxls.mall.cache;
 
 import cn.hutool.core.collection.CollUtil;
-import com.xqxls.mall.common.service.RedisService;
+import com.xqxls.mall.common.cache.RedisService;
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsAdminRoleRelationEntity;
 import com.xqxls.mall.entity.UmsResourceEntity;

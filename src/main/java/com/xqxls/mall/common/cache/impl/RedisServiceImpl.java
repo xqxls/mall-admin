@@ -1,6 +1,6 @@
-package com.xqxls.mall.common.service.impl;
+package com.xqxls.mall.common.cache.impl;
 
-import com.xqxls.mall.common.service.RedisService;
+import com.xqxls.mall.common.cache.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
