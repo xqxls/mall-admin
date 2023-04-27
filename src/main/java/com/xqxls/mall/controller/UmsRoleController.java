@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Api(tags = "后台用户角色表前端控制器")
 @RestController
-@RequestMapping("/ums-role")
+@RequestMapping("/role")
 public class UmsRoleController {
 
     @Autowired

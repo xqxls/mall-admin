@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Api(tags = "后台资源表前端控制器")
 @RestController
-@RequestMapping("/ums-resource")
+@RequestMapping("/resource")
 public class UmsResourceController {
 
     @Autowired
