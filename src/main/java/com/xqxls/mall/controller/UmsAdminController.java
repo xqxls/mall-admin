@@ -44,7 +44,6 @@ public class UmsAdminController {
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<Map<String,String>> login(@Validated @RequestBody UmsAdminLoginDto umsAdminLoginDto) {
         String token = adminService.login(umsAdminLoginDto.getUsername(), umsAdminLoginDto.getPassword());
         if (token == null) {
@@ -58,7 +57,6 @@ public class UmsAdminController {
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<UmsAdminEntity> register(@Validated @RequestBody UmsAdminRegisterDto umsAdminRegisterDto) {
         UmsAdminEntity umsAdminEntity = adminService.register(umsAdminRegisterDto);
         if (umsAdminEntity == null) {
@@ -69,7 +67,6 @@ public class UmsAdminController {
 
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<Map<String,String>> refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         String refreshToken = adminService.refreshToken(token);
@@ -84,7 +81,6 @@ public class UmsAdminController {
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult<Map<String,Object>> getAdminInfo(Principal principal) {
         if(principal==null){
             return CommonResult.unauthorized(null);
@@ -94,14 +90,12 @@ public class UmsAdminController {
 
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<Void> logout() {
         return CommonResult.success(null);
     }
 
     @ApiOperation("根据用户名或姓名分页获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult<CommonPage<UmsAdminEntity>> list(@RequestParam(value = "keyword", required = false) String keyword,
                                                          @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                          @RequestParam(value = "size", defaultValue = "5") Integer size) {
@@ -111,7 +105,6 @@ public class UmsAdminController {
 
     @ApiOperation("获取指定用户信息")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult<UmsAdminEntity> getItem(@PathVariable Long id) {
         UmsAdminEntity admin = adminService.findById(id);
         return CommonResult.success(admin);
@@ -119,7 +112,6 @@ public class UmsAdminController {
 
     @ApiOperation("修改指定用户信息")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    @ResponseBody
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsAdminEntity admin) {
         int count = adminService.update(id, admin);
         if (count>0) {
@@ -130,7 +122,6 @@ public class UmsAdminController {
 
     @ApiOperation("修改指定用户密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
-    @ResponseBody
     public CommonResult<Integer> updatePassword(@Validated @RequestBody UpdateAdminPasswordDto updateAdminPasswordDto) {
         int status = adminService.updatePassword(updateAdminPasswordDto);
         if (status > 0) {
@@ -148,7 +139,6 @@ public class UmsAdminController {
 
     @ApiOperation("删除指定用户信息")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = adminService.delete(id);
         if (count>0) {
@@ -159,7 +149,6 @@ public class UmsAdminController {
 
     @ApiOperation("修改帐号状态")
     @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.PUT)
-    @ResponseBody
     public CommonResult<Void> updateStatus(@PathVariable Long id,@RequestParam(value = "status") Integer status) {
         UmsAdminEntity umsAdmin = new UmsAdminEntity();
         umsAdmin.setStatus(status);
@@ -172,7 +161,6 @@ public class UmsAdminController {
 
     @ApiOperation("给用户分配角色")
     @RequestMapping(value = "/allocateRole", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<Integer> allocateRole(@RequestParam("adminId") Long adminId,
                                    @RequestParam("roleIds") List<Long> roleIds) {
         int count = adminService.allocateRole(adminId, roleIds);
@@ -184,7 +172,6 @@ public class UmsAdminController {
 
     @ApiOperation("获取指定用户的角色")
     @RequestMapping(value = "/role/{adminId}", method = RequestMethod.GET)
-    @ResponseBody
     public CommonResult<List<UmsRoleEntity>> getRoleList(@PathVariable Long adminId) {
         List<UmsRoleEntity> roleList = adminService.getRoleList(adminId);
         return CommonResult.success(roleList);

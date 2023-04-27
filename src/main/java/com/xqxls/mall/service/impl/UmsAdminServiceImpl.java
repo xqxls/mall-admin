@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xqxls.mall.cache.UmsAdminCacheService;
+import com.xqxls.mall.common.cache.UmsAdminCacheService;
 import com.xqxls.mall.common.exception.Asserts;
 import com.xqxls.mall.convert.mapstruct.UmsAdminMapper;
 import com.xqxls.mall.domain.AdminUserDetails;

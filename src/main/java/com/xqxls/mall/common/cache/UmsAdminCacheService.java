@@ -1,4 +1,4 @@
-package com.xqxls.mall.cache;
+package com.xqxls.mall.common.cache;
 
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsResourceEntity;

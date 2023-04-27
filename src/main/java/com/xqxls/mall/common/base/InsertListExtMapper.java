@@ -1,6 +1,6 @@
-package com.xqxls.mall.base;
+package com.xqxls.mall.common.base;
 
-import com.xqxls.mall.base.provider.SpecialSqlExtProvider;
+import com.xqxls.mall.common.base.provider.SpecialSqlExtProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Options;
 

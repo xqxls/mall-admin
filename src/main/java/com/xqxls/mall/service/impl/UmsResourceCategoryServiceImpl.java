@@ -5,6 +5,8 @@ import com.xqxls.mall.mapper.UmsResourceCategoryDao;
 import com.xqxls.mall.service.UmsResourceCategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * 资源分类表 服务实现类
  *
@@ -14,4 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UmsResourceCategoryServiceImpl extends ServiceImpl<UmsResourceCategoryDao, UmsResourceCategoryEntity> implements UmsResourceCategoryService {
 
+    @Override
+    public int create(UmsResourceCategoryEntity umsResourceCategory) {
+        umsResourceCategory.setPrimaryId();
+        umsResourceCategory.setCreateTime(new Date());
+        return this.add(umsResourceCategory);
+    }
 }
