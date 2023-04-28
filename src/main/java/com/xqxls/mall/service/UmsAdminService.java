@@ -1,5 +1,6 @@
 package com.xqxls.mall.service;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.cache.UmsAdminCacheService;
 import com.xqxls.mall.dto.UmsAdminRegisterDto;
@@ -7,7 +8,6 @@ import com.xqxls.mall.dto.UpdateAdminPasswordDto;
 import com.xqxls.mall.entity.UmsAdminEntity;
 import com.xqxls.mall.entity.UmsResourceEntity;
 import com.xqxls.mall.entity.UmsRoleEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,7 +27,7 @@ public interface UmsAdminService extends IService<UmsAdminEntity>{
      * @param password
      * @return
      */
-    String login(String username, String password);
+    SaTokenInfo login(String username, String password);
 
     /**
      * 根据用户名获取用户
@@ -49,13 +49,6 @@ public interface UmsAdminService extends IService<UmsAdminEntity>{
      * @return
      */
     List<UmsResourceEntity> getResourceList(Long adminId);
-
-    /**
-     * 根据用户名获取Security认证信息
-     * @param username
-     * @return
-     */
-    UserDetails loadUserByUsername(String username);
 
     /**
      * 获取缓存服务类

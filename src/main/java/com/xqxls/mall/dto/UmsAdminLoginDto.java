@@ -12,11 +12,9 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class UmsAdminLoginDto {
 
-    @NotBlank
     @ApiModelProperty(value = "用户名", required = true)
     private String username;
 
-    @NotBlank
     @ApiModelProperty(value = "密码", required = true)
     private String password;
 

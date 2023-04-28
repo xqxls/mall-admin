@@ -1,5 +1,6 @@
 package com.xqxls.mall.util;
 
+import cn.dev33.satoken.secure.SaSecureUtil;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,5 +41,9 @@ public class ObjectUtil {
         }
 
         return null;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(SaSecureUtil.md5("123456"));
     }
 }

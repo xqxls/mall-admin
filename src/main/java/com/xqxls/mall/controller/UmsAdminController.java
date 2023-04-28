@@ -1,5 +1,6 @@
 package com.xqxls.mall.controller;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.aop.annotation.WebLog;
 import com.xqxls.mall.common.api.CommonPage;
@@ -13,7 +14,6 @@ import com.xqxls.mall.service.UmsAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,26 +34,20 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class UmsAdminController {
 
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
-
     @Autowired
     private UmsAdminService adminService;
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @WebLog
-    public CommonResult<Map<String,String>> login(@Validated @RequestBody UmsAdminLoginDto umsAdminLoginDto) {
-        String token = adminService.login(umsAdminLoginDto.getUsername(), umsAdminLoginDto.getPassword());
-        if (token == null) {
+    public CommonResult<Map<String,String>> login(@RequestBody UmsAdminLoginDto umsAdminLoginDto) {
+        SaTokenInfo saTokenInfo = adminService.login(umsAdminLoginDto.getUsername(), umsAdminLoginDto.getPassword());
+        if (saTokenInfo == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("token", saTokenInfo.getTokenValue());
+        tokenMap.put("tokenHead", saTokenInfo.getTokenName());
         return CommonResult.success(tokenMap);
     }
 
@@ -70,15 +64,15 @@ public class UmsAdminController {
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
     public CommonResult<Map<String,String>> refreshToken(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String refreshToken = adminService.refreshToken(token);
-        if (refreshToken == null) {
-            return CommonResult.failed("token已经过期！");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", refreshToken);
-        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
+//        String token = request.getHeader(tokenHeader);
+//        String refreshToken = adminService.refreshToken(token);
+//        if (refreshToken == null) {
+//            return CommonResult.failed("token已经过期！");
+//        }
+//        Map<String, String> tokenMap = new HashMap<>();
+//        tokenMap.put("token", refreshToken);
+//        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(null);
     }
 
     @ApiOperation(value = "获取当前登录用户信息")

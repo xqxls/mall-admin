@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.common.api.CommonPage;
 import com.xqxls.mall.common.api.CommonResult;
 import com.xqxls.mall.entity.UmsResourceEntity;
-import com.xqxls.mall.security.component.DynamicSecurityMetadataSource;
 import com.xqxls.mall.service.UmsResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,14 +26,10 @@ public class UmsResourceController {
     @Autowired
     private UmsResourceService umsResourceService;
 
-    @Autowired
-    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
-
     @ApiOperation("添加后台资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public CommonResult<Void> create(@RequestBody UmsResourceEntity umsResourceEntity) {
         int count = umsResourceService.create(umsResourceEntity);
-        dynamicSecurityMetadataSource.clearDataSource();
         if (count>0) {
             return CommonResult.success(null);
         } else {
@@ -47,7 +42,6 @@ public class UmsResourceController {
     public CommonResult<Void> update(@PathVariable Long id,
                                @RequestBody UmsResourceEntity umsResourceEntity) {
         int count = umsResourceService.update(id, umsResourceEntity);
-        dynamicSecurityMetadataSource.clearDataSource();
         if (count>0) {
             return CommonResult.success(null);
         } else {
@@ -66,7 +60,6 @@ public class UmsResourceController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = umsResourceService.delete(id);
-        dynamicSecurityMetadataSource.clearDataSource();
         if (count>0) {
             return CommonResult.success(null);
         } else {

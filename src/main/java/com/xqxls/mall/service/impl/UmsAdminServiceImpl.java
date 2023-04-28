@@ -1,29 +1,22 @@
 package com.xqxls.mall.service.impl;
 
+import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.cache.UmsAdminCacheService;
-import com.xqxls.mall.common.exception.Asserts;
-import com.xqxls.mall.convert.mapstruct.UmsAdminMapper;
-import com.xqxls.mall.domain.AdminUserDetails;
 import com.xqxls.mall.dto.UmsAdminRegisterDto;
 import com.xqxls.mall.dto.UpdateAdminPasswordDto;
 import com.xqxls.mall.entity.*;
 import com.xqxls.mall.mapper.*;
 import com.xqxls.mall.service.UmsAdminService;
 import com.xqxls.mall.service.UmsRoleService;
-import com.xqxls.mall.util.JwtTokenUtil;
 import com.xqxls.mall.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -61,34 +54,23 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
     private UmsAdminRoleRelationDao umsAdminRoleRelationDao;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
     private UmsRoleService umsRoleService;
 
     @Override
-    public String login(String username, String password) {
-        String token = null;
-        //密码需要客户端加密后传递
-        try {
-            UserDetails userDetails = this.loadUserByUsername(username);
-            if(!passwordEncoder.matches(password,userDetails.getPassword())){
-                Asserts.fail("密码不正确");
-            }
-            if(!userDetails.isEnabled()){
-                Asserts.fail("帐号已被禁用");
-            }
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
-            insertLoginLog(username);
-        } catch (AuthenticationException e) {
-            log.warn("登录异常:{}", e.getMessage());
+    public SaTokenInfo login(String username, String password) {
+        SaTokenInfo saTokenInfo = null;
+        UmsAdminEntity umsAdminEntity = getAdminByUsername(username);
+        if (umsAdminEntity == null) {
+            return null;
         }
-        return token;
+        if (!SaSecureUtil.md5(password).equals(umsAdminEntity.getPassword())) {
+            return null;
+        }
+        // 密码校验成功后登录，一行代码实现登录
+        StpUtil.login(umsAdminEntity.getId());
+        // 获取当前登录用户Token信息
+        saTokenInfo = StpUtil.getTokenInfo();
+        return saTokenInfo;
     }
 
     private void insertLoginLog(String username) {
@@ -107,15 +89,6 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
         umsAdminLoginLogDao.insert(umsAdminLoginLogEntity);
     }
 
-    public UserDetails loadUserByUsername(String username) {
-        //获取用户信息
-        UmsAdminEntity umsAdminEntity = this.getAdminByUsername(username);
-        if (umsAdminEntity != null) {
-            List<UmsResourceEntity> resourceList = this.getResourceList(umsAdminEntity.getId());
-            return new AdminUserDetails(umsAdminEntity,resourceList);
-        }
-        throw new UsernameNotFoundException("用户名或密码错误");
-    }
 
     @Override
     public UmsAdminEntity getAdminByUsername(String username) {
@@ -145,25 +118,25 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
 
     @Override
     public UmsAdminEntity register(UmsAdminRegisterDto umsAdminRegisterDto) {
-        UmsAdminEntity umsAdminEntity = UmsAdminMapper.INSTANCE.umsAdminRegisterToEntity(umsAdminRegisterDto);
-        umsAdminEntity.setPrimaryId();
-        umsAdminEntity.setCreateTime(new Date());
-        umsAdminEntity.setStatus(1);
-        //查询是否有相同用户名的用户
-        UmsAdminEntity queryEntity = this.getAdminByUsername(umsAdminEntity.getUsername());
-        if (Objects.nonNull(queryEntity)) {
-            Asserts.fail("用户名已存在");
-        }
-        //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(umsAdminEntity.getPassword());
-        umsAdminEntity.setPassword(encodePassword);
-        this.add(umsAdminEntity);
-        return umsAdminEntity;
+//        UmsAdminEntity umsAdminEntity = UmsAdminMapper.INSTANCE.umsAdminRegisterToEntity(umsAdminRegisterDto);
+//        umsAdminEntity.setPrimaryId();
+//        umsAdminEntity.setCreateTime(new Date());
+//        umsAdminEntity.setStatus(1);
+//        //查询是否有相同用户名的用户
+//        UmsAdminEntity queryEntity = this.getAdminByUsername(umsAdminEntity.getUsername());
+//        if (Objects.nonNull(queryEntity)) {
+//            Asserts.fail("用户名已存在");
+//        }
+//        //将密码进行加密操作
+//        String encodePassword = passwordEncoder.encode(umsAdminEntity.getPassword());
+//        umsAdminEntity.setPassword(encodePassword);
+//        this.add(umsAdminEntity);
+        return null;
     }
 
     @Override
     public String refreshToken(String oldToken) {
-        return jwtTokenUtil.refreshHeadToken(oldToken);
+        return null;
     }
 
     @Override
@@ -197,40 +170,40 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
 
     @Override
     public int update(Long id, UmsAdminEntity admin) {
-        admin.setId(id);
-        UmsAdminEntity queryAdminEntity = this.findById(id);
-        if(queryAdminEntity.getPassword().equals(admin.getPassword())){
-            //与原加密密码相同的不需要修改
-            admin.setPassword(null);
-        }else{
-            //与原加密密码不同的需要加密修改
-            if(StrUtil.isEmpty(admin.getPassword())){
-                admin.setPassword(null);
-            }else{
-                admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-            }
-        }
-        this.getCacheService().delAdmin(id);
-        return this.update(admin);
+//        admin.setId(id);
+//        UmsAdminEntity queryAdminEntity = this.findById(id);
+//        if(queryAdminEntity.getPassword().equals(admin.getPassword())){
+//            //与原加密密码相同的不需要修改
+//            admin.setPassword(null);
+//        }else{
+//            //与原加密密码不同的需要加密修改
+//            if(StrUtil.isEmpty(admin.getPassword())){
+//                admin.setPassword(null);
+//            }else{
+//                admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+//            }
+//        }
+//        this.getCacheService().delAdmin(id);
+        return 0;
     }
 
     @Override
     public int updatePassword(UpdateAdminPasswordDto dto) {
-        if(StrUtil.isEmpty(dto.getUsername())
-                ||StrUtil.isEmpty(dto.getOldPassword())
-                ||StrUtil.isEmpty(dto.getNewPassword())){
-            return -1;
-        }
-        UmsAdminEntity queryAdminEntity = this.getAdminByUsername(dto.getUsername());
-        if(Objects.isNull(queryAdminEntity)){
-            return -2;
-        }
-        if(!passwordEncoder.matches(dto.getOldPassword(),queryAdminEntity.getPassword())){
-            return -3;
-        }
-        queryAdminEntity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
-        this.update(queryAdminEntity);
-        getCacheService().delAdmin(queryAdminEntity.getId());
+//        if(StrUtil.isEmpty(dto.getUsername())
+//                ||StrUtil.isEmpty(dto.getOldPassword())
+//                ||StrUtil.isEmpty(dto.getNewPassword())){
+//            return -1;
+//        }
+//        UmsAdminEntity queryAdminEntity = this.getAdminByUsername(dto.getUsername());
+//        if(Objects.isNull(queryAdminEntity)){
+//            return -2;
+//        }
+//        if(!passwordEncoder.matches(dto.getOldPassword(),queryAdminEntity.getPassword())){
+//            return -3;
+//        }
+//        queryAdminEntity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+//        this.update(queryAdminEntity);
+//        getCacheService().delAdmin(queryAdminEntity.getId());
         return 1;
     }
 
