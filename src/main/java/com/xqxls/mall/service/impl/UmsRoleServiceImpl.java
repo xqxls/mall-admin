@@ -69,7 +69,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
         // 删除角色资源关系
         umsRoleResourceRelationService.deleteByRoleIds(ids);
         // 删除角色
-        umsRoleDao.delByIds(ids);
+        this.deleteByIdList(ids);
     }
 
     @Override

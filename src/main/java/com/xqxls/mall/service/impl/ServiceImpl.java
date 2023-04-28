@@ -46,5 +46,10 @@ public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
         return mapper.insertBatch(list);
     }
 
+    @Override
+    public int deleteByIdList(List<Long> idList) {
+        return mapper.deleteByIdList(idList);
+    }
+
 
 }

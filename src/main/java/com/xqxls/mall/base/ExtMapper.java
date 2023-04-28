@@ -1,6 +1,7 @@
 package com.xqxls.mall.base;
 
 import com.xqxls.mall.base.provider.SpecialSqlExtProvider;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Options;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @Date: Created in 2023/4/26 19:44
  */
 @tk.mybatis.mapper.annotation.RegisterMapper
-public interface InsertListExtMapper<T> {
+public interface ExtMapper<T> {
     /**
      * 批量插入全部字段，包括主键
      *
@@ -22,5 +23,15 @@ public interface InsertListExtMapper<T> {
     @Options(keyProperty = "id")
     @InsertProvider(type = SpecialSqlExtProvider.class, method = "insertBatch")
     int insertBatch(List<? extends T> recordList);
+
+    /**
+     * 根据主键批量删除
+     *
+     * @param recordList 数据列表
+     * @return
+     */
+    @Options(keyProperty = "id")
+    @DeleteProvider(type = SpecialSqlExtProvider.class, method = "deleteByIdList")
+    int deleteByIdList(List<Long> recordList);
 
 }

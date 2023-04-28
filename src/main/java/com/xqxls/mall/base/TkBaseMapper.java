@@ -9,6 +9,6 @@ import tk.mybatis.mapper.common.MySqlMapper;
  * @Author: huzhuo
  * @Date: Created in 2023/4/25 22:10
  */
-public interface TkBaseMapper<T> extends Mapper<T>, MySqlMapper<T>,InsertListExtMapper<T> {
+public interface TkBaseMapper<T> extends Mapper<T>, MySqlMapper<T>, ExtMapper<T> {
 
 }

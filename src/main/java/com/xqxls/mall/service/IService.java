@@ -56,4 +56,10 @@ public interface IService<T> {
      */
     int insertBatch(List<T> list);
 
+    /**
+     * 根据id批量删除
+     * @return
+     */
+    int deleteByIdList(List<Long> idList);
+
 }

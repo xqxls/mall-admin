@@ -56,4 +56,19 @@ public class SpecialSqlExtProvider extends MapperTemplate {
 
     }
 
+    /**
+     * @Title: deleteByIdList
+     * @Description：批量删除方法
+     */
+    public String deleteByIdList(MappedStatement ms){
+        Class<?> entityClass = getEntityClass(ms);
+        //开始拼sql
+        return SqlHelper.deleteFromTable(entityClass, super.tableName(entityClass)) +
+                " where id in " +
+                "<foreach item=\"record\" collection=\"list\" open=\"(\" separator=\",\" close=\")\">" +
+                "#{record}" +
+                "</foreach>";
+
+    }
+
 }
