@@ -99,9 +99,9 @@ public class UmsAdminController {
     @ApiOperation("根据用户名或姓名分页获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public CommonResult<CommonPage<UmsAdminEntity>> list(@RequestParam(value = "keyword", required = false) String keyword,
-                                                         @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                         @RequestParam(value = "size", defaultValue = "5") Integer size) {
-        PageInfo<UmsAdminEntity> adminList = adminService.list(keyword, page, size);
+                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        PageInfo<UmsAdminEntity> adminList = adminService.list(keyword, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(adminList));
     }
 

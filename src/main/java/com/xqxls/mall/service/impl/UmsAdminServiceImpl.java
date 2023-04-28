@@ -102,7 +102,6 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
         if(attributes!=null){
             HttpServletRequest request = attributes.getRequest();
             umsAdminLoginLogEntity.setIp(request.getRemoteAddr());
-            umsAdminLoginLogEntity.setUserAgent(request.getHeader("User-Agent"));
             umsAdminLoginLogEntity.setAddress(request.getRemoteHost()+":"+request.getRemotePort());
         }
         umsAdminLoginLogDao.insert(umsAdminLoginLogEntity);

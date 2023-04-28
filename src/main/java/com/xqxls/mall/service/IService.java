@@ -50,4 +50,10 @@ public interface IService<T> {
      */
     List<T> findAll();
 
+    /**
+     * 批量插入数据
+     * @return
+     */
+    int insertBatch(List<T> list);
+
 }

@@ -70,9 +70,9 @@ public class UmsMenuController {
     @ApiOperation("分页查询后台菜单")
     @RequestMapping(value = "/list/{parentId}", method = RequestMethod.GET)
     public CommonResult<CommonPage<UmsMenuEntity>> list(@PathVariable Long parentId,
-                                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                        @RequestParam(value = "size", defaultValue = "5") Integer size) {
-        PageInfo<UmsMenuEntity> menuList = umsMenuService.list(parentId, page, size);
+                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        PageInfo<UmsMenuEntity> menuList = umsMenuService.list(parentId, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(menuList));
     }
 

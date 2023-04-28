@@ -2,6 +2,8 @@ package com.xqxls.mall.service;
 
 import com.xqxls.mall.entity.UmsRoleResourceRelationEntity;
 
+import java.util.List;
+
 /**
  * 后台角色资源关系表 服务类接口
  *
@@ -9,5 +11,9 @@ import com.xqxls.mall.entity.UmsRoleResourceRelationEntity;
  * @date 2023-04-25 9:20 上午
  */
 public interface UmsRoleResourceRelationService extends IService<UmsRoleResourceRelationEntity>{
+
+    void deleteByRoleId(Long roleId);
+
+    void deleteByRoleIds(List<Long> roleIds);
 
 }

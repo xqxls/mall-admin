@@ -41,5 +41,10 @@ public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
         return mapper.selectAll();
     }
 
+    @Override
+    public int insertBatch(List<T> list) {
+        return mapper.insertBatch(list);
+    }
+
 
 }

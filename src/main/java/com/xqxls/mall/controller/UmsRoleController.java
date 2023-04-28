@@ -67,9 +67,9 @@ public class UmsRoleController {
     @ApiOperation("根据角色名称分页获取角色列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public CommonResult<CommonPage<UmsRoleEntity>> list(@RequestParam(value = "keyword", required = false) String keyword,
-                                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                        @RequestParam(value = "size", defaultValue = "5") Integer size) {
-        PageInfo<UmsRoleEntity> roleList = umsRoleService.list(keyword, page, size);
+                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        PageInfo<UmsRoleEntity> roleList = umsRoleService.list(keyword, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(roleList));
     }
 

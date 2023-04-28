@@ -79,9 +79,9 @@ public class UmsResourceController {
     public CommonResult<CommonPage<UmsResourceEntity>> list(@RequestParam(required = false) Long categoryId,
                                                       @RequestParam(required = false) String nameKeyword,
                                                       @RequestParam(required = false) String urlKeyword,
-                                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                      @RequestParam(value = "size", defaultValue = "5") Integer size) {
-        PageInfo<UmsResourceEntity> resourceList = umsResourceService.list(categoryId,nameKeyword, urlKeyword, page, size);
+                                                      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        PageInfo<UmsResourceEntity> resourceList = umsResourceService.list(categoryId,nameKeyword, urlKeyword, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(resourceList));
     }
 

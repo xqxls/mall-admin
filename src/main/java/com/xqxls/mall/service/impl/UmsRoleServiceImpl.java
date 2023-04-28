@@ -6,6 +6,8 @@ import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.cache.UmsAdminCacheService;
 import com.xqxls.mall.entity.*;
 import com.xqxls.mall.mapper.*;
+import com.xqxls.mall.service.UmsRoleMenuRelationService;
+import com.xqxls.mall.service.UmsRoleResourceRelationService;
 import com.xqxls.mall.service.UmsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,10 +38,10 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
     private UmsRoleDao umsRoleDao;
 
     @Autowired
-    private UmsRoleMenuRelationDao umsRoleMenuRelationDao;
+    private UmsRoleMenuRelationService umsRoleMenuRelationService;
 
     @Autowired
-    private UmsRoleResourceRelationDao umsRoleResourceRelationDao;
+    private UmsRoleResourceRelationService umsRoleResourceRelationService;
 
     @Autowired
     private UmsAdminCacheService adminCacheService;
@@ -52,6 +54,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
 
     @Override
     public int create(UmsRoleEntity umsRoleEntity) {
+        umsRoleEntity.setPrimaryId();
         umsRoleEntity.setCreateTime(new Date());
         umsRoleEntity.setAdminCount(0);
         umsRoleEntity.setSort(0);
@@ -59,7 +62,13 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteByIds(List<Long> ids) {
+        // 删除角色菜单关系
+        umsRoleMenuRelationService.deleteByRoleIds(ids);
+        // 删除角色资源关系
+        umsRoleResourceRelationService.deleteByRoleIds(ids);
+        // 删除角色
         umsRoleDao.delByIds(ids);
     }
 
@@ -89,10 +98,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
     @Transactional(rollbackFor = Exception.class)
     public int allocMenu(Long roleId, List<Long> menuIds) {
         // 删除原来的菜单
-        Example example = new Example(UmsRoleMenuRelationEntity.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("roleId", roleId);
-        umsRoleMenuRelationDao.deleteByExample(example);
+        umsRoleMenuRelationService.deleteByRoleId(roleId);
 
         // 绑定新菜单
         if(!CollectionUtils.isEmpty(menuIds)){
@@ -104,7 +110,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
                 menuRelation.setMenuId(menuId);
                 list.add(menuRelation);
             }
-            umsRoleMenuRelationDao.insertBatch(list);
+            umsRoleMenuRelationService.insertBatch(list);
         }
         return menuIds.size();
     }
@@ -113,10 +119,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
     @Transactional(rollbackFor = Exception.class)
     public int allocResource(Long roleId, List<Long> resourceIds) {
         // 删除原来的资源
-        Example example = new Example(UmsRoleResourceRelationEntity.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("roleId", roleId);
-        umsRoleResourceRelationDao.deleteByExample(example);
+        umsRoleResourceRelationService.deleteByRoleId(roleId);
 
         // 绑定新资源
         if(!CollectionUtils.isEmpty(resourceIds)){
@@ -128,7 +131,7 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleDao, UmsRoleEntity> i
                 resourceRelation.setResourceId(resourceId);
                 list.add(resourceRelation);
             }
-            umsRoleResourceRelationDao.insertBatch(list);
+            umsRoleResourceRelationService.insertBatch(list);
         }
         adminCacheService.delResourceListByRole(roleId);
         return resourceIds.size();

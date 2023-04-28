@@ -31,6 +31,7 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceDao, UmsResou
 
     @Override
     public int create(UmsResourceEntity umsResourceEntity) {
+        umsResourceEntity.setPrimaryId();
         umsResourceEntity.setCreateTime(new Date());
         return this.add(umsResourceEntity);
     }
