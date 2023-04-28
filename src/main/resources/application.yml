@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: mall-tiny
+    name: mall-admin
   profiles:
     active: dev
   mvc:

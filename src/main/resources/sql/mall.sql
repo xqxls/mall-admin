@@ -1,5 +1,4 @@
 
-
 DROP TABLE IF EXISTS `ums_admin`;
 CREATE TABLE `ums_admin` (
   `id` bigint(20) NOT NULL COMMENT '主键ID',
