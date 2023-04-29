@@ -32,10 +32,7 @@ public class UmsRoleController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public CommonResult<Void> create(@RequestBody UmsRoleEntity umsRoleEntity) {
         int count = umsRoleService.create(umsRoleEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改角色")
@@ -43,10 +40,7 @@ public class UmsRoleController {
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsRoleEntity umsRoleEntity) {
         umsRoleEntity.setId(id);
         int count = umsRoleService.update(umsRoleEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("批量删除角色")
@@ -80,10 +74,7 @@ public class UmsRoleController {
         umsRoleEntity.setId(id);
         umsRoleEntity.setStatus(status);
         int count = umsRoleService.update(umsRoleEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("获取角色相关菜单")

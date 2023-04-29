@@ -1,6 +1,7 @@
 package com.xqxls.mall.service.impl;
 
 import com.xqxls.mall.base.TkBaseMapper;
+import com.xqxls.mall.common.api.CommonResult;
 import com.xqxls.mall.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -50,6 +51,5 @@ public class ServiceImpl<M extends TkBaseMapper<T>, T> implements IService<T> {
     public int deleteByIdList(List<Long> idList) {
         return mapper.deleteByIdList(idList);
     }
-
 
 }

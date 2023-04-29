@@ -52,4 +52,5 @@ public interface UmsMenuService extends IService<UmsMenuEntity>{
      * @return
      */
     int updateHidden(Long id, Integer hidden);
+
 }

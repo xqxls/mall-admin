@@ -30,11 +30,7 @@ public class UmsResourceController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public CommonResult<Void> create(@RequestBody UmsResourceEntity umsResourceEntity) {
         int count = umsResourceService.create(umsResourceEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改后台资源")
@@ -42,11 +38,7 @@ public class UmsResourceController {
     public CommonResult<Void> update(@PathVariable Long id,
                                @RequestBody UmsResourceEntity umsResourceEntity) {
         int count = umsResourceService.update(id, umsResourceEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("根据ID获取资源详情")
@@ -60,11 +52,7 @@ public class UmsResourceController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = umsResourceService.delete(id);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("分页模糊查询后台资源")

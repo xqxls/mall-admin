@@ -65,17 +65,17 @@ public interface UmsAdminService extends IService<UmsAdminEntity>{
 
     /**
      * 刷新token
-     * @param oldToken
+     * @param
      * @return
      */
-    String refreshToken(String oldToken);
+    SaTokenInfo refreshToken();
 
     /**
      * 通过凭证获取当前登录用户信息
-     * @param principal
+     * @param
      * @return
      */
-    Map<String,Object> getAdminInfoByPrincipal(Principal principal);
+    Map<String,Object> getAdminInfoByToken(SaTokenInfo saTokenInfo);
 
     /**
      * 根据用户名或昵称分页查询用户
@@ -115,4 +115,13 @@ public interface UmsAdminService extends IService<UmsAdminEntity>{
      * @return
      */
     int allocateRole(Long adminId, List<Long> roleIds);
+
+    /**
+     * 根据token获取tokenMap
+     * @param saTokenInfo
+     * @return
+     */
+    Map<String, String> getTokenMap(SaTokenInfo saTokenInfo);
+
+
 }

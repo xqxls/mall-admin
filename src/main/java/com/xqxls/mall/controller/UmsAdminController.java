@@ -1,6 +1,7 @@
 package com.xqxls.mall.controller;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
+import cn.dev33.satoken.stp.StpUtil;
 import com.github.pagehelper.PageInfo;
 import com.xqxls.mall.aop.annotation.WebLog;
 import com.xqxls.mall.common.api.CommonPage;
@@ -18,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,11 +45,9 @@ public class UmsAdminController {
         if (saTokenInfo == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", saTokenInfo.getTokenValue());
-        tokenMap.put("tokenHead", saTokenInfo.getTokenName());
-        return CommonResult.success(tokenMap);
+        return CommonResult.success(adminService.getTokenMap(saTokenInfo));
     }
+
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -63,25 +61,19 @@ public class UmsAdminController {
 
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
-    public CommonResult<Map<String,String>> refreshToken(HttpServletRequest request) {
-//        String token = request.getHeader(tokenHeader);
-//        String refreshToken = adminService.refreshToken(token);
-//        if (refreshToken == null) {
-//            return CommonResult.failed("token已经过期！");
-//        }
-//        Map<String, String> tokenMap = new HashMap<>();
-//        tokenMap.put("token", refreshToken);
-//        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(null);
+    public CommonResult<Map<String,String>> refreshToken() {
+        SaTokenInfo saTokenInfo = adminService.refreshToken();
+        return CommonResult.success(adminService.getTokenMap(saTokenInfo));
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public CommonResult<Map<String,Object>> getAdminInfo(Principal principal) {
-        if(principal==null){
+    public CommonResult<Map<String,Object>> getAdminInfo() {
+        SaTokenInfo saTokenInfo = StpUtil.getTokenInfo();
+        if(saTokenInfo==null){
             return CommonResult.unauthorized(null);
         }
-        return CommonResult.success(adminService.getAdminInfoByPrincipal(principal));
+        return CommonResult.success(adminService.getAdminInfoByToken(saTokenInfo));
     }
 
     @ApiOperation(value = "登出功能")
@@ -110,10 +102,7 @@ public class UmsAdminController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsAdminEntity admin) {
         int count = adminService.update(id, admin);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改指定用户密码")
@@ -137,10 +126,7 @@ public class UmsAdminController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = adminService.delete(id);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改帐号状态")
@@ -149,10 +135,7 @@ public class UmsAdminController {
         UmsAdminEntity umsAdmin = new UmsAdminEntity();
         umsAdmin.setStatus(status);
         int count = adminService.update(id,umsAdmin);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("给用户分配角色")

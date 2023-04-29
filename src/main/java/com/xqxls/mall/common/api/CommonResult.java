@@ -20,6 +20,14 @@ public class CommonResult<T> {
         this.data = data;
     }
 
+    public static <T> CommonResult<T> getCountResult(Integer count) {
+        if (count>0) {
+            return CommonResult.success(null);
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
     /**
      * 成功返回结果
      *
