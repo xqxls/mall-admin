@@ -35,11 +35,7 @@ public class UmsResourceCategoryController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public CommonResult<Void> create(@RequestBody UmsResourceCategoryEntity umsResourceCategory) {
         int count = umsResourceCategoryService.create(umsResourceCategory);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改后台资源分类")
@@ -48,21 +44,13 @@ public class UmsResourceCategoryController {
                                @RequestBody UmsResourceCategoryEntity umsResourceCategory) {
         umsResourceCategory.setId(id);
         int count = umsResourceCategoryService.update(umsResourceCategory);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("根据ID删除后台资源")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = umsResourceCategoryService.deleteById(id);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 }

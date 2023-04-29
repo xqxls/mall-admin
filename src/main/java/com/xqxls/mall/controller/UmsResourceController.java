@@ -35,11 +35,7 @@ public class UmsResourceController {
     public CommonResult<Void> create(@RequestBody UmsResourceEntity umsResourceEntity) {
         int count = umsResourceService.create(umsResourceEntity);
         dynamicSecurityMetadataSource.clearDataSource();
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改后台资源")
@@ -48,11 +44,7 @@ public class UmsResourceController {
                                @RequestBody UmsResourceEntity umsResourceEntity) {
         int count = umsResourceService.update(id, umsResourceEntity);
         dynamicSecurityMetadataSource.clearDataSource();
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("根据ID获取资源详情")
@@ -67,11 +59,7 @@ public class UmsResourceController {
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = umsResourceService.delete(id);
         dynamicSecurityMetadataSource.clearDataSource();
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("分页模糊查询后台资源")

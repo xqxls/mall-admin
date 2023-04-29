@@ -116,10 +116,7 @@ public class UmsAdminController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsAdminEntity admin) {
         int count = adminService.update(id, admin);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改指定用户密码")
@@ -143,10 +140,7 @@ public class UmsAdminController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = adminService.delete(id);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改帐号状态")
@@ -155,10 +149,7 @@ public class UmsAdminController {
         UmsAdminEntity umsAdmin = new UmsAdminEntity();
         umsAdmin.setStatus(status);
         int count = adminService.update(id,umsAdmin);
-        if (count>0) {
-            return CommonResult.success(null);
-        }
-        return CommonResult.failed();
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("给用户分配角色")

@@ -31,22 +31,14 @@ public class UmsMenuController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public CommonResult<Void> create(@RequestBody UmsMenuEntity umsMenuEntity) {
         int count = umsMenuService.create(umsMenuEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("修改后台菜单")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public CommonResult<Void> update(@PathVariable Long id, @RequestBody UmsMenuEntity umsMenuEntity) {
         int count = umsMenuService.update(id, umsMenuEntity);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("根据ID获取菜单详情")
@@ -60,11 +52,7 @@ public class UmsMenuController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public CommonResult<Void> delete(@PathVariable Long id) {
         int count = umsMenuService.deleteById(id);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
     @ApiOperation("分页查询后台菜单")
@@ -86,11 +74,7 @@ public class UmsMenuController {
     @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.PUT)
     public CommonResult<Integer> updateHidden(@PathVariable Long id, @RequestParam("hidden") Integer hidden) {
         int count = umsMenuService.updateHidden(id, hidden);
-        if (count>0) {
-            return CommonResult.success(null);
-        } else {
-            return CommonResult.failed();
-        }
+        return CommonResult.getCountResult(count);
     }
 
 }
