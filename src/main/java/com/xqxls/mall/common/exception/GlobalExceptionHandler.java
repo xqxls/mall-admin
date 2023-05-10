@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)
-    public CommonResult handle(ApiException e) {
+    public CommonResult<Object>  handle(ApiException e) {
         if (e.getErrorCode() != null) {
             return CommonResult.failed(e.getErrorCode());
         }
@@ -28,11 +28,11 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public CommonResult handleValidException(MethodArgumentNotValidException e) {
+    public CommonResult<Object>  handleValidException(MethodArgumentNotValidException e) {
         return getCommonResult(e.getBindingResult());
     }
 
-    private CommonResult getCommonResult(BindingResult bindingResult) {
+    private CommonResult<Object>  getCommonResult(BindingResult bindingResult) {
         String message = null;
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = BindException.class)
-    public CommonResult handleValidException(BindException e) {
+    public CommonResult<Object>  handleValidException(BindException e) {
         return getCommonResult(e.getBindingResult());
     }
 }
