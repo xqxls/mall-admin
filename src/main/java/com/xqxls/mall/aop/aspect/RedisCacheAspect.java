@@ -14,8 +14,9 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * Redis缓存切面，防止Redis宕机影响正常业务逻辑
- * Created by macro on 2020/3/17.
+ * @Description: Redis缓存切面，防止Redis宕机影响正常业务逻辑
+ * @Author: huzhuo
+ * @Date: Created in 2023/6/13 19:44
  */
 @Aspect
 @Component
@@ -24,8 +25,7 @@ import java.lang.reflect.Method;
 public class RedisCacheAspect {
 
     @Pointcut("execution(public * com.xqxls.mall.cache.*CacheService.*(..))")
-    public void cacheAspect() {
-    }
+    public void cacheAspect(){}
 
     @Around("cacheAspect()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {

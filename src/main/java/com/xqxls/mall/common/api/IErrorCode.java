@@ -7,7 +7,16 @@ package com.xqxls.mall.common.api;
  * @Date: Created in 2023/4/25 22:10
  */
 public interface IErrorCode {
+
+    /**
+     * 获取code
+     * @return
+     */
     long getCode();
 
+    /**
+     * 获取消息
+     * @return
+     */
     String getMessage();
 }

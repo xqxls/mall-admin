@@ -8,6 +8,7 @@ import com.xqxls.mall.common.api.IErrorCode;
  * @Date: Created in 2023/4/25 22:10
  */
 public class ApiException extends RuntimeException {
+
     private IErrorCode errorCode;
 
     public ApiException(IErrorCode errorCode) {

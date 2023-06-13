@@ -7,5 +7,9 @@ package com.xqxls.mall.common.id;
  */
 public interface IdWorker {
 
+    /**
+     * 生成雪花ID
+     * @return
+     */
     long nextId();
 }
