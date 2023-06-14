@@ -10,5 +10,10 @@ import com.xqxls.mall.entity.UmsResourceCategoryEntity;
  */
 public interface UmsResourceCategoryService extends IService<UmsResourceCategoryEntity>{
 
+    /**
+     * 新增资源分类
+     * @param umsResourceCategory 资源分类实体
+     * @return 成功新增条数
+     */
     int create(UmsResourceCategoryEntity umsResourceCategory);
 }

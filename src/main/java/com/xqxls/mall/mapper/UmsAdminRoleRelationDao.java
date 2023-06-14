@@ -16,7 +16,17 @@ import java.util.List;
 @Component
 public interface UmsAdminRoleRelationDao extends TkBaseMapper<UmsAdminRoleRelationEntity> {
 
+    /**
+     * 批量新增用户角色关系
+     * @param list 用户角色关系列表
+     * @return 成功添加个数
+     */
     int addBatch(@Param("list") List<UmsAdminRoleRelationEntity> list);
 
+    /**
+     * 根据用户ID删除用户角色关系
+     * @param adminId 用户ID
+     * @return 成功删除的用户角色关系数
+     */
     int delByAdminId(@Param("adminId") Long adminId);
 }

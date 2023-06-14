@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Snowflake;
 import tk.mybatis.mapper.genid.GenId;
 
 /**
- * @Description:
+ * @Description: 雪花算法
  * @Author: huzhuo
  * @Date: Created in 2023/4/25 18:50
  */

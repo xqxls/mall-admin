@@ -17,8 +17,8 @@ public interface UmsAdminMapper {
 
     /**
      * 注册dto转实体
-     * @param umsAdminRegisterDto
-     * @return
+     * @param umsAdminRegisterDto 注册dto
+     * @return 用户实体类
      */
     UmsAdminEntity umsAdminRegisterToEntity(UmsAdminRegisterDto umsAdminRegisterDto);
 }

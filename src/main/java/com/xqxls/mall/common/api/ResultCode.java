@@ -19,7 +19,9 @@ public enum ResultCode implements IErrorCode {
     /** 没有相关权限 **/
     FORBIDDEN(403, "没有相关权限");
 
+    /** 编码 **/
     private long code;
+    /** 提示信息 **/
     private String message;
 
     private ResultCode(long code, String message) {

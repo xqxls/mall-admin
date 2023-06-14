@@ -9,7 +9,7 @@ public interface IdWorker {
 
     /**
      * 生成雪花ID
-     * @return
+     * @return 雪花ID
      */
     long nextId();
 }

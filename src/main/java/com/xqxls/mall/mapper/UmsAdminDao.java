@@ -16,5 +16,10 @@ import java.util.List;
 @Component
 public interface UmsAdminDao extends TkBaseMapper<UmsAdminEntity> {
 
+    /**
+     * 根据资源ID获取用户ID列表
+     * @param resourceId 资源ID
+     * @return 用户ID列表
+     */
     List<Long> getAdminIdList(@Param("resourceId") Long resourceId);
 }

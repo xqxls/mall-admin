@@ -93,7 +93,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
 
     private void insertLoginLog(String username) {
         UmsAdminEntity umsAdminEntity = getAdminByUsername(username);
-        if(umsAdminEntity==null) return;
+        if(umsAdminEntity==null) {
+            return;
+        }
         UmsAdminLoginLogEntity umsAdminLoginLogEntity = new UmsAdminLoginLogEntity();
         umsAdminLoginLogEntity.setPrimaryId();
         umsAdminLoginLogEntity.setAdminId(umsAdminEntity.getId());
@@ -107,6 +109,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
         umsAdminLoginLogDao.insert(umsAdminLoginLogEntity);
     }
 
+    @Override
     public UserDetails loadUserByUsername(String username) {
         //获取用户信息
         UmsAdminEntity umsAdminEntity = this.getAdminByUsername(username);
@@ -120,7 +123,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminDao,UmsAdminEntity>
     @Override
     public UmsAdminEntity getAdminByUsername(String username) {
         UmsAdminEntity admin = this.getCacheService().getAdmin(username);
-        if(admin!=null) return  admin;
+        if(admin!=null) {
+            return  admin;
+        }
         Example example = new Example(UmsAdminEntity.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("username", username);

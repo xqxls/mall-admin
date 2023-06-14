@@ -18,8 +18,15 @@ public interface UmsResourceDao extends TkBaseMapper<UmsResourceEntity> {
 
     /**
      * 获取用户所有可访问资源
+     * @param adminId 用户ID
+     * @return 资源列表
      */
     List<UmsResourceEntity> getResourceList(@Param("adminId") Long adminId);
 
+    /**
+     * 获取角色所有可访问资源
+     * @param roleId 角色ID
+     * @return 资源列表
+     */
     List<UmsResourceEntity> getResourceListByRoleId(@Param("roleId") Long roleId);
 }

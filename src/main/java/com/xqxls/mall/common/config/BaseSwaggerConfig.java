@@ -63,7 +63,7 @@ public abstract class BaseSwaggerConfig {
     private SecurityContext getContextByPath() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/*/.*"))
+                .operationSelector(oc -> oc.requestMappingPattern().matches("/*/.*"))
                 .build();
     }
 
@@ -78,6 +78,7 @@ public abstract class BaseSwaggerConfig {
 
     /**
      * 自定义Swagger配置
+     * @return Swagger属性值
      */
     public abstract SwaggerProperties swaggerProperties();
 }

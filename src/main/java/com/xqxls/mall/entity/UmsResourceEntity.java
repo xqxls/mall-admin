@@ -32,7 +32,7 @@ public class UmsResourceEntity extends BaseEntity {
     private String name;
 
     /**
-     * 资源URL
+     * 资源名称
      */
     private String url;
 

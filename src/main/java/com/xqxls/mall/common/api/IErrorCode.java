@@ -9,14 +9,14 @@ package com.xqxls.mall.common.api;
 public interface IErrorCode {
 
     /**
-     * 获取code
-     * @return
+     * 获取编码
+     * @return 编码
      */
     long getCode();
 
     /**
-     * 获取消息
-     * @return
+     * 获取提示信息
+     * @return 提示信息
      */
     String getMessage();
 }

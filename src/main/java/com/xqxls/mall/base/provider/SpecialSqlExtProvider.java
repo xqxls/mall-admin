@@ -21,8 +21,9 @@ public class SpecialSqlExtProvider extends MapperTemplate {
     }
 
     /**
-     * @Title: insertBatch
-     * @Description：批量添加方法
+     * 批量添加方法
+     * @param ms statement
+     * @return 拼接后的sql
      */
     public String insertBatch(MappedStatement ms){
         Class<?> entityClass = getEntityClass(ms);
@@ -57,8 +58,9 @@ public class SpecialSqlExtProvider extends MapperTemplate {
     }
 
     /**
-     * @Title: deleteByIdList
-     * @Description：批量删除方法
+     * 批量删除方法
+     * @param ms statement
+     * @return 拼接后的sql
      */
     public String deleteByIdList(MappedStatement ms){
         Class<?> entityClass = getEntityClass(ms);

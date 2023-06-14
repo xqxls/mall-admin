@@ -23,7 +23,7 @@ public class GlobalCorsConfig {
         //允许所有域名进行跨域调用
         config.addAllowedOriginPattern("*");
         //该用法在SpringBoot 2.7.0中已不再支持
-        //config.addAllowedOrigin("*");
+        //config.addAllowedOrigin("*")
         //允许跨越发送cookie
         config.setAllowCredentials(true);
         //放行全部原始头信息

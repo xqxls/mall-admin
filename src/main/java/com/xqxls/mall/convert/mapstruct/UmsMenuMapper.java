@@ -17,8 +17,8 @@ public interface UmsMenuMapper {
 
     /**
      * 菜单实体转节点类
-     * @param umsMenuEntity
-     * @return
+     * @param umsMenuEntity 菜单实体类
+     * @return 菜单节点类
      */
     UmsMenuNode umsMenuEntityToNode(UmsMenuEntity umsMenuEntity);
 }
