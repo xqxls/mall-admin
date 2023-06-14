@@ -21,7 +21,7 @@ public class ObjectUtil {
      * @param object Object对象
      * @param clazz 需要转换的集合
      * @param <T> 泛型类
-     * @return
+     * @return List集合
      */
     public static <T> List<T> objectToList(Object object, Class<T> clazz){
         try {

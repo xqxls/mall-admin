@@ -3,6 +3,7 @@ package com.xqxls.mall.dto.node;
 import com.xqxls.mall.entity.UmsMenuEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @create 2023-04-26 17:36
  * @Description
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class UmsMenuNode extends UmsMenuEntity {
 

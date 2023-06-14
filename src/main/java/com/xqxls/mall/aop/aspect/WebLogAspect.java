@@ -11,18 +11,14 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * @author 胡卓
  * @create 2022-08-30 16:35
- * @Description
+ * @Description 自定义日志切面，记录用户操作方法记录
  */
 @Aspect
 @Component
@@ -32,13 +28,11 @@ public class WebLogAspect {
     @Autowired
     private UmsWebLogDao umsWebLogDao;
 
-    //@Pointcut("execution(public * com.spring.wx.oauth.conntroller.*.*(..))")
     @Pointcut("@annotation(com.xqxls.mall.aop.annotation.WebLog)")
     public void webLog(){
 
     }
 
-    //@Around：环绕通知
     @Around("webLog()")
     public Object saveSysLog(ProceedingJoinPoint proceedingJoinPoint) {
         log.info("环绕通知开始。。。。。");

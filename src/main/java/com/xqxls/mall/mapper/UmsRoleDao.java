@@ -18,12 +18,14 @@ public interface UmsRoleDao extends TkBaseMapper<UmsRoleEntity> {
 
     /**
      * 获取用户所有角色
+     * @param adminId 用户ID
+     * @return 角色列表
      */
     List<UmsRoleEntity> getRoleList(@Param("adminId") Long adminId);
 
     /**
      * 批量删除角色
-     * @param ids
+     * @param ids 角色ID列表
      */
     void delByIds(@Param("ids") List<Long> ids);
 }

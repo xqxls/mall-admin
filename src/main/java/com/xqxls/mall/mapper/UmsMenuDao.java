@@ -18,8 +18,15 @@ public interface UmsMenuDao extends TkBaseMapper<UmsMenuEntity> {
 
     /**
      * 根据后台用户ID获取菜单
+     * @param adminId 用户ID
+     * @return 菜单列表
      */
     List<UmsMenuEntity> getMenuList(@Param("adminId") Long adminId);
 
+    /**
+     * 根据后台角色ID获取菜单
+     * @param roleId 角色ID
+     * @return 菜单列表
+     */
     List<UmsMenuEntity> getMenuListByRoleId(@Param("roleId") Long roleId);
 }

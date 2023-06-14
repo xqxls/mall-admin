@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)
-    public CommonResult handle(ApiException e) {
+    public CommonResult<?> handle(ApiException e) {
         if (e.getErrorCode() != null) {
             return CommonResult.failed(e.getErrorCode());
         }
@@ -31,17 +31,17 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public CommonResult handleValidException(MethodArgumentNotValidException e) {
+    public CommonResult<?> handleValidException(MethodArgumentNotValidException e) {
         return getCommonResult(e.getBindingResult());
     }
 
     @ResponseBody
     @ExceptionHandler(value = BindException.class)
-    public CommonResult handleValidException(BindException e) {
+    public CommonResult<?> handleValidException(BindException e) {
         return getCommonResult(e.getBindingResult());
     }
 
-    private CommonResult getCommonResult(BindingResult bindingResult) {
+    private CommonResult<?> getCommonResult(BindingResult bindingResult) {
         String message = null;
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = NotLoginException.class)
-    public CommonResult handleNotLoginException(NotLoginException e) {
+    public CommonResult<?> handleNotLoginException(NotLoginException e) {
         return CommonResult.unauthorized(e.getMessage());
     }
 
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = NotPermissionException.class)
-    public CommonResult handleNotPermissionException(NotPermissionException e) {
+    public CommonResult<?> handleNotPermissionException(NotPermissionException e) {
         return CommonResult.forbidden(e.getMessage());
     }
 
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = NotRoleException.class)
-    public CommonResult handleNotRoleException(NotRoleException e) {
+    public CommonResult<?> handleNotRoleException(NotRoleException e) {
         return CommonResult.forbidden(e.getMessage());
     }
 

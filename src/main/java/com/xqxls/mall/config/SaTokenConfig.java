@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Sa-Token相关配置
+ * @Author: huzhuo
+ * @Date: Created in 2023/4/25 22:10
  */
 @Configuration
 public class SaTokenConfig implements WebMvcConfigurer {

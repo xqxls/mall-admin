@@ -18,7 +18,7 @@ public interface ExtMapper<T> {
      * 批量插入全部字段，包括主键
      *
      * @param recordList 数据列表
-     * @return
+     * @return 成功插入条数
      */
     @Options(keyProperty = "id")
     @InsertProvider(type = SpecialSqlExtProvider.class, method = "insertBatch")
@@ -28,7 +28,7 @@ public interface ExtMapper<T> {
      * 根据主键批量删除
      *
      * @param recordList 数据列表
-     * @return
+     * @return 成功删除条数
      */
     @Options(keyProperty = "id")
     @DeleteProvider(type = SpecialSqlExtProvider.class, method = "deleteByIdList")
